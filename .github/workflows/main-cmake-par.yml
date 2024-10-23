@@ -77,7 +77,7 @@ jobs:
         working-directory: ${{ runner.workspace }}/build
         if: ${{ matrix.run_tests && (inputs.thread_safety != 'TS') }}
 
-  CMake_build_parallel_mpi_3.0:
+  CMake_build_parallel_mpi_3_0:
     name: "Parallel MPI 3.0 ${{ inputs.build_mode }}"
     runs-on: ubuntu-latest
     steps:
