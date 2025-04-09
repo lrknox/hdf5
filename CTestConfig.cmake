@@ -27,7 +27,7 @@ endif ()
 if (CTEST_DROP_LOCATION_INIT)
   set (CTEST_DROP_LOCATION "${CTEST_DROP_LOCATION_INIT}")
 else ()
-  set (CTEST_DROP_LOCATION "/submit.php?project=HDF5114")
+  set (CTEST_DROP_LOCATION "/submit.php?project=HDF5")
 endif ()
 set (CTEST_DROP_SITE_CDASH TRUE)
 
