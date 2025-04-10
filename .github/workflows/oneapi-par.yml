@@ -55,8 +55,8 @@ jobs:
 
       - name: Set MPI Environment Variables (${{ matrix.mpi }})
         run: |
-          echo "CC=mpiicx" >> $GITHUB_ENV
-          echo "FC=mpiifx" >> $GITHUB_ENV
+          echo "CC=mpicc" >> $GITHUB_ENV
+          echo "FC=mpif90" >> $GITHUB_ENV
 
       - name: Set file base name (${{ matrix.mpi }})
         id: set-file-base
