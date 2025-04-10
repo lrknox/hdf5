@@ -42,8 +42,8 @@ jobs:
           sudo apt install libaec0 libaec-dev
 
       - name: Install oneAPI (Linux)
-        uses: fortran-lang/setup-fortran@v1
-        id: setup-fortran
+        uses: mpi4py/setup-mpi@v1
+        id: setup-mpi
         with:
           compiler: intel
           version: '2024.1'
