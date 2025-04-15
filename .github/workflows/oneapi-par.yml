@@ -44,9 +44,9 @@ jobs:
       - name: Install oneAPI (Linux)
         uses: mpi4py/setup-mpi@v1
         id: setup-mpi
-        with:
-          compiler: intel
-          version: '2024.1'
+#        with:
+#          compiler: intel
+#          version: '2024.1'
 
       - name: Install Dependencies
         uses: ssciwr/doxygen-install@v1
