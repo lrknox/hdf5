@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HDF5: bin Directory Reference</title>
+<title>HDF5: c++/src/H5Location.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -50,7 +50,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="HDFG-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">HDF5<span id="projectnumber">&#160;Last Updated on 2025-11-20</span>
+   <div id="projectname">HDF5<span id="projectnumber">&#160;Last Updated on 2026-01-20</span>
    </div>
    <div id="projectbrief">The HDF5 Field Guide</div>
   </td>
@@ -111,7 +111,7 @@ $(function() { codefold.init(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('dir_2ea30aa2956a8db99dd22aa5e597f384.html',''); initResizable(true); });
+$(function(){initNavTree('_h5_location_8cpp.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -137,56 +137,52 @@ $(function(){initNavTree('dir_2ea30aa2956a8db99dd22aa5e597f384.html',''); initRe
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">bin Directory Reference</div></div>
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">H5Location.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Program   </th><th class="markdownTableHeadNone">Purpose    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>checkapi</code>   </td><td class="markdownTableBodyNone">Checks if public API calls are used in internal functions    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>chkcopyright</code>   </td><td class="markdownTableBodyNone">Checks if files have appropriate copyright statements    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>debug-ohdr</code>   </td><td class="markdownTableBodyNone">Examines debug output from <code>H5O_open/close</code> to look for open objects    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>format_source</code>   </td><td class="markdownTableBodyNone">Runs <code>clang-format</code> over the source files, applying our rules    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>genparser</code>   </td><td class="markdownTableBodyNone">Creates the flex/bison-based parser files in the high-level library    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>h5cc.in</code>   </td><td class="markdownTableBodyNone"><a class="el" href="struct_input.html">Input</a> file from which h5cc is created    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>h5redeploy.in</code>   </td><td class="markdownTableBodyNone"><a class="el" href="struct_input.html">Input</a> file from which h5redeploy is created    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>h5vers</code>   </td><td class="markdownTableBodyNone">Updates the library version number    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make_err</code>   </td><td class="markdownTableBodyNone">Generates the H5E header files    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>make_vers</code>   </td><td class="markdownTableBodyNone">Generates <a class="el" href="_h5version_8h.html">H5version.h</a>    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>make_overflow</code>   </td><td class="markdownTableBodyNone">Generates H5overflow.h    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>output_filter</code>   </td><td class="markdownTableBodyNone">Used in the tools test code to strip extraneous output before we diff files    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>runbkprog</code>   </td><td class="markdownTableBodyNone">Used by CMake to run test programs in the background    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><code>trace</code>   </td><td class="markdownTableBodyNone">Updates <code>H5ARG_TRACE</code> macros in H5ES_insert() calls    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><code>warnhist</code>   </td><td class="markdownTableBodyNone">Generates compiler warning statistics for gcc/clang when fed output of make   </td></tr>
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &quot;<a class="el" href="_h5_include_8h.html">H5Include.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_exception_8h.html">H5Exception.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_id_component_8h.html">H5IdComponent.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_data_space_8h.html">H5DataSpace.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_prop_list_8h.html">H5PropList.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_facc_prop_8h.html">H5FaccProp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_fcreat_prop_8h.html">H5FcreatProp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_ocreat_prop_8h.html">H5OcreatProp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_dcreat_prop_8h.html">H5DcreatProp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_dxfer_prop_8h.html">H5DxferProp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_lcreat_prop_8h.html">H5LcreatProp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_lacc_prop_8h.html">H5LaccProp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_dacc_prop_8h.html">H5DaccProp.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_location_8h.html">H5Location.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_object_8h.html">H5Object.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_data_type_8h.html">H5DataType.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_abstract_ds_8h.html">H5AbstractDs.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_data_set_8h.html">H5DataSet.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_common_f_g_8h.html">H5CommonFG.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_group_8h.html">H5Group.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_h5_file_8h.html">H5File.h</a>&quot;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_h5.html">H5</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a0c67708838c1b3647849a9931ff2cee1" id="r_a0c67708838c1b3647849a9931ff2cee1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_h5.html#a0c67708838c1b3647849a9931ff2cee1">f_DataSpace_setId</a> (<a class="el" href="class_h5_1_1_data_space.html">DataSpace</a> *dspace, <a class="el" href="_h5_ipublic_8h.html#a0045db7ff9c22ad35db6ae91662e1943">hid_t</a> new_id)</td></tr>
+<tr class="separator:a0c67708838c1b3647849a9931ff2cee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md1"></a>
-TODO</h1>
-<ul>
-<li>chkcopyright is currently semi-broken as it doesn't handle the full variety of copyright headers we need. We're leaving it in place, though, in the hopes that someone will update it in the future.</li>
-<li>Extending warnhist to better understand the output of additional compilers/languages would be nice. </li>
-</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_2ea30aa2956a8db99dd22aa5e597f384.html">bin</a></li>
+    <li class="navelem"><a class="el" href="dir_b2bca091c87127f5da307455ce418719.html">c++</a></li><li class="navelem"><a class="el" href="dir_a4815dd9cce47a9a317ef1c662fb7271.html">src</a></li><li class="navelem"><a class="el" href="_h5_location_8cpp.html">H5Location.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.2 </li>
   </ul>
 </div>

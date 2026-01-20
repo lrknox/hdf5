@@ -50,7 +50,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="HDFG-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">HDF5<span id="projectnumber">&#160;Last Updated on 2025-11-20</span>
+   <div id="projectname">HDF5<span id="projectnumber">&#160;Last Updated on 2026-01-20</span>
    </div>
    <div id="projectbrief">The HDF5 Field Guide</div>
   </td>
@@ -2107,7 +2107,7 @@ For a file opened without SWMR access, the value retrieved will always be the de
 <div class="line"><span class="comment">/* Close the file */</span></div>
 <div class="line"><a class="code hl_function" href="group___h5_f.html#gac55cd91d80822e4f8c2a7f04ea71b124">H5Fclose</a>(fid);</div>
 <div class="ttc" id="a_h5_fpublic_8h_html_a1c406ffa89f4acf5a332144a2683d394"><div class="ttname"><a href="_h5_fpublic_8h.html#a1c406ffa89f4acf5a332144a2683d394">H5F_ACC_RDONLY</a></div><div class="ttdeci">#define H5F_ACC_RDONLY</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:28</div></div>
-<div class="ttc" id="a_h5_fpublic_8h_html_a22b12837bca0dba6689096a370d73402"><div class="ttname"><a href="_h5_fpublic_8h.html#a22b12837bca0dba6689096a370d73402">H5F_ACC_SWMR_READ</a></div><div class="ttdeci">#define H5F_ACC_SWMR_READ</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:40</div></div>
+<div class="ttc" id="a_h5_fpublic_8h_html_a22b12837bca0dba6689096a370d73402"><div class="ttname"><a href="_h5_fpublic_8h.html#a22b12837bca0dba6689096a370d73402">H5F_ACC_SWMR_READ</a></div><div class="ttdeci">#define H5F_ACC_SWMR_READ</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:49</div></div>
 <div class="ttc" id="a_h5_ppublic_8h_html_afa85e97bfbf9bf1c58e39263846c568f"><div class="ttname"><a href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a></div><div class="ttdeci">#define H5P_DEFAULT</div><div class="ttdef"><b>Definition</b> H5Ppublic.h:220</div></div>
 <div class="ttc" id="agroup___h5_f_html_ga359585c49f82f5199178777b39e780f4"><div class="ttname"><a href="group___h5_f.html#ga359585c49f82f5199178777b39e780f4">H5Fget_access_plist</a></div><div class="ttdeci">hid_t H5Fget_access_plist(hid_t file_id)</div><div class="ttdoc">Returns a file access property list identifier.</div></div>
 <div class="ttc" id="agroup___h5_f_html_gaa3f4f877b9bb591f3880423ed2bf44bc"><div class="ttname"><a href="group___h5_f.html#gaa3f4f877b9bb591f3880423ed2bf44bc">H5Fopen</a></div><div class="ttdeci">hid_t H5Fopen(const char *filename, unsigned flags, hid_t fapl_id)</div><div class="ttdoc">Opens an existing HDF5 file.</div></div>
@@ -2316,7 +2316,7 @@ For a file opened without SWMR access, the value retrieved will always be the de
 <div class="line">}</div>
 <div class="ttc" id="a_h5_fpublic_8h_html_a402673dec5c537b27a49a9a8bd6140b4"><div class="ttname"><a href="_h5_fpublic_8h.html#a402673dec5c537b27a49a9a8bd6140b4">H5F_ACC_RDWR</a></div><div class="ttdeci">#define H5F_ACC_RDWR</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:29</div></div>
 <div class="ttc" id="a_h5_ipublic_8h_html_a0045db7ff9c22ad35db6ae91662e1943"><div class="ttname"><a href="_h5_ipublic_8h.html#a0045db7ff9c22ad35db6ae91662e1943">hid_t</a></div><div class="ttdeci">int64_t hid_t</div><div class="ttdef"><b>Definition</b> H5Ipublic.h:60</div></div>
-<div class="ttc" id="a_h5public_8h_html_a3b079ecf932a5c599499cf7e298af160"><div class="ttname"><a href="_h5public_8h.html#a3b079ecf932a5c599499cf7e298af160">herr_t</a></div><div class="ttdeci">int herr_t</div><div class="ttdef"><b>Definition</b> H5public.h:252</div></div>
+<div class="ttc" id="a_h5public_8h_html_a3b079ecf932a5c599499cf7e298af160"><div class="ttname"><a href="_h5public_8h.html#a3b079ecf932a5c599499cf7e298af160">herr_t</a></div><div class="ttdeci">int herr_t</div><div class="ttdef"><b>Definition</b> H5public.h:269</div></div>
 <div class="ttc" id="agroup___f_a_p_l_html_gab4a4a788af5b6e88381dda0df2efbf19"><div class="ttname"><a href="#gab4a4a788af5b6e88381dda0df2efbf19">H5Pset_object_flush_cb</a></div><div class="ttdeci">herr_t H5Pset_object_flush_cb(hid_t plist_id, H5F_flush_cb_t func, void *udata)</div><div class="ttdoc">Sets a callback function to invoke when an object flush occurs in the file.</div></div>
 <div class="ttc" id="agroup___f_a_p_l_html_gadb66d434fd8d2f600213b0eec539564e"><div class="ttname"><a href="#gadb66d434fd8d2f600213b0eec539564e">H5Pget_object_flush_cb</a></div><div class="ttdeci">herr_t H5Pget_object_flush_cb(hid_t plist_id, H5F_flush_cb_t *func, void **udata)</div><div class="ttdoc">Retrieves the object flush property values from the file access property list.</div></div>
 </div><!-- fragment --> </dd></dl>
@@ -3308,7 +3308,7 @@ One buffer of size buf_size will be created for each of <a class="el" href="_h5_
 The table, immediately below, describes output of the various logging driver flags and function calls. A list of valid flavor values, describing the type of data stored, follows the table. <table class="doxtable">
 <caption>Table2: Logging Output</caption>
 <tr>
-<th>Flag</th><th>VFD Call</th><th>Output and Comments   </th></tr>
+<th>Flag</th><th>VFD Call</th><th>Output and Comments  </th></tr>
 <tr>
 <td><a class="el" href="_h5_f_dlog_8h.html#a120669aefa2b196e1654adc89ec573d1">H5FD_LOG_LOC_READ</a> </td><td>Read </td><td><code>%10a-%10a (%10Zu bytes) (s) Read</code><br  />
 <br  />
@@ -3394,7 +3394,7 @@ Note: The data buffer is scanned and each range of identical values gets one ent
 <tr>
 <td><a class="el" href="_h5_f_dlog_8h.html#ae243e77f6140dd939c7def71c2d9e1e3">H5FD_LOG_TIME_READ</a> </td><td>Close, Read </td><td>Total time in read operations: <code>%f s</code><br  />
 <br  />
-See also: <a class="el" href="_h5_f_dlog_8h.html#a120669aefa2b196e1654adc89ec573d1">H5FD_LOG_LOC_READ</a>    </td></tr>
+See also: <a class="el" href="_h5_f_dlog_8h.html#a120669aefa2b196e1654adc89ec573d1">H5FD_LOG_LOC_READ</a>   </td></tr>
 <tr>
 <td><a class="el" href="_h5_f_dlog_8h.html#a7e3f0ecd0d5065d9031e8da9446442d6">H5FD_LOG_TIME_WRITE</a> </td><td>Close, Write </td><td>Total time in write operations: <code>%f s</code><br  />
 <br  />
@@ -3419,7 +3419,7 @@ Flavor of allocation   </td></tr>
 <dl class="section user"><dt>Flavors:</dt><dd>The <em>flavor</em> describes the type of stored information. The following table lists the flavors that appear in log output and briefly describes each. These terms are provided here to aid in the construction of log message parsers; a full description is beyond the scope of this document. <table class="doxtable">
 <caption>Table3: Flavors of logged data</caption>
 <tr>
-<th>Flavor</th><th>Description   </th></tr>
+<th>Flavor</th><th>Description  </th></tr>
 <tr>
 <td><a class="el" href="_h5_fpublic_8h.html#a51e588cd954ea2388816bd0818850eb5a06b02f5b50dcf7e78a94acada33979bb">H5FD_MEM_NOLIST</a> </td><td>Error value  </td></tr>
 <tr>
@@ -3634,12 +3634,12 @@ Flavor of allocation   </td></tr>
 <div class="line"><a class="code hl_typedef" href="_h5_ipublic_8h.html#a0045db7ff9c22ad35db6ae91662e1943">hid_t</a> fapl = <a class="code hl_function" href="group___p_l_c_r.html#gaf1b11da01d4d45d788c45f8bc5f0cbfa">H5Pcreate</a>(<a class="code hl_define" href="_h5_ppublic_8h.html#a60ec2d4334addfc0eda89614598ee38e">H5P_FILE_ACCESS</a>);</div>
 <div class="line"><a class="code hl_function" href="#ga5d9096f3413a7b66b28afcbf15d05396">H5Pset_fapl_multi</a>(fapl, memb_map, memb_fapl,</div>
 <div class="line">                  memb_name, memb_addr, <span class="keyword">true</span>);</div>
-<div class="ttc" id="a_h5_f_dpublic_8h_html_a02887a6f018be1a0ce7358522095578b"><div class="ttname"><a href="_h5_f_dpublic_8h.html#a02887a6f018be1a0ce7358522095578b">H5FD_mem_t</a></div><div class="ttdeci">enum H5F_mem_t H5FD_mem_t</div><div class="ttdef"><b>Definition</b> H5FDpublic.h:269</div></div>
-<div class="ttc" id="a_h5_fpublic_8h_html_a51e588cd954ea2388816bd0818850eb5a3be201777da432df4a8e2c1b618a7566"><div class="ttname"><a href="_h5_fpublic_8h.html#a51e588cd954ea2388816bd0818850eb5a3be201777da432df4a8e2c1b618a7566">H5FD_MEM_NTYPES</a></div><div class="ttdeci">@ H5FD_MEM_NTYPES</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:158</div></div>
-<div class="ttc" id="a_h5_fpublic_8h_html_a51e588cd954ea2388816bd0818850eb5ab435b061fede0393691acbe7cac2cb2e"><div class="ttname"><a href="_h5_fpublic_8h.html#a51e588cd954ea2388816bd0818850eb5ab435b061fede0393691acbe7cac2cb2e">H5FD_MEM_DRAW</a></div><div class="ttdeci">@ H5FD_MEM_DRAW</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:153</div></div>
-<div class="ttc" id="a_h5_fpublic_8h_html_a51e588cd954ea2388816bd0818850eb5ae536846ac8d6ecd1a2a8479409df1bce"><div class="ttname"><a href="_h5_fpublic_8h.html#a51e588cd954ea2388816bd0818850eb5ae536846ac8d6ecd1a2a8479409df1bce">H5FD_MEM_SUPER</a></div><div class="ttdeci">@ H5FD_MEM_SUPER</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:151</div></div>
-<div class="ttc" id="a_h5public_8h_html_a49742d33813ee38ef58eca9fbeda6b86"><div class="ttname"><a href="_h5public_8h.html#a49742d33813ee38ef58eca9fbeda6b86">HADDR_MAX</a></div><div class="ttdeci">#define HADDR_MAX</div><div class="ttdef"><b>Definition</b> H5public.h:369</div></div>
-<div class="ttc" id="a_h5public_8h_html_a8c86e866f40d7167cf9a1934c72b856f"><div class="ttname"><a href="_h5public_8h.html#a8c86e866f40d7167cf9a1934c72b856f">haddr_t</a></div><div class="ttdeci">uint64_t haddr_t</div><div class="ttdef"><b>Definition</b> H5public.h:355</div></div>
+<div class="ttc" id="a_h5_f_dpublic_8h_html_a02887a6f018be1a0ce7358522095578b"><div class="ttname"><a href="_h5_f_dpublic_8h.html#a02887a6f018be1a0ce7358522095578b">H5FD_mem_t</a></div><div class="ttdeci">enum H5F_mem_t H5FD_mem_t</div><div class="ttdef"><b>Definition</b> H5FDpublic.h:273</div></div>
+<div class="ttc" id="a_h5_fpublic_8h_html_a51e588cd954ea2388816bd0818850eb5a3be201777da432df4a8e2c1b618a7566"><div class="ttname"><a href="_h5_fpublic_8h.html#a51e588cd954ea2388816bd0818850eb5a3be201777da432df4a8e2c1b618a7566">H5FD_MEM_NTYPES</a></div><div class="ttdeci">@ H5FD_MEM_NTYPES</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:163</div></div>
+<div class="ttc" id="a_h5_fpublic_8h_html_a51e588cd954ea2388816bd0818850eb5ab435b061fede0393691acbe7cac2cb2e"><div class="ttname"><a href="_h5_fpublic_8h.html#a51e588cd954ea2388816bd0818850eb5ab435b061fede0393691acbe7cac2cb2e">H5FD_MEM_DRAW</a></div><div class="ttdeci">@ H5FD_MEM_DRAW</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:158</div></div>
+<div class="ttc" id="a_h5_fpublic_8h_html_a51e588cd954ea2388816bd0818850eb5ae536846ac8d6ecd1a2a8479409df1bce"><div class="ttname"><a href="_h5_fpublic_8h.html#a51e588cd954ea2388816bd0818850eb5ae536846ac8d6ecd1a2a8479409df1bce">H5FD_MEM_SUPER</a></div><div class="ttdeci">@ H5FD_MEM_SUPER</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:156</div></div>
+<div class="ttc" id="a_h5public_8h_html_a49742d33813ee38ef58eca9fbeda6b86"><div class="ttname"><a href="_h5public_8h.html#a49742d33813ee38ef58eca9fbeda6b86">HADDR_MAX</a></div><div class="ttdeci">#define HADDR_MAX</div><div class="ttdef"><b>Definition</b> H5public.h:386</div></div>
+<div class="ttc" id="a_h5public_8h_html_a8c86e866f40d7167cf9a1934c72b856f"><div class="ttname"><a href="_h5public_8h.html#a8c86e866f40d7167cf9a1934c72b856f">haddr_t</a></div><div class="ttdeci">uint64_t haddr_t</div><div class="ttdef"><b>Definition</b> H5public.h:372</div></div>
 <div class="ttc" id="agroup___f_a_p_l_html_ga5d9096f3413a7b66b28afcbf15d05396"><div class="ttname"><a href="#ga5d9096f3413a7b66b28afcbf15d05396">H5Pset_fapl_multi</a></div><div class="ttdeci">herr_t H5Pset_fapl_multi(hid_t fapl_id, const H5FD_mem_t *memb_map, const hid_t *memb_fapl, const char *const *memb_name, const haddr_t *memb_addr, bool relax)</div><div class="ttdoc">Sets up use of the multi-file driver.</div></div>
 </div><!-- fragment --></dd></dl>
 <dl class="section version"><dt>Version</dt><dd>1.6.3 <code class="param">memb_name</code> parameter type changed to <code>const char* const*</code>. </dd></dl>
@@ -4168,7 +4168,7 @@ The <code class="param">vfd_config</code> parameter may be NULL. In this case, t
 <p>Some file drivers allow the use of user-defined callback functions for allocating, freeing, and copying the driver's internal buffer, potentially allowing optimizations such as avoiding large <code>malloc</code> and <code>memcpy</code> operations, or to perform detailed logging.</p>
 <p>From the perspective of the HDF5 library, the operations of the <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a81d31063c72da7bfcb2e75aeda9cad32">image_malloc</a>, <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a4562078dc2326b0315c410d733d38030">image_memcpy</a>, <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a4b550f819daa4e0553c2272de4d40f5d">image_realloc</a>, and <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a7e81e4662ea07b93e9380f5f78fee890">image_free</a> callbacks must be identical to those of the corresponding C standard library calls (<code>malloc</code>, <code>memcpy</code>, <code>realloc</code>, and <code>free</code>). While the operations must be identical, the file image callbacks have more parameters. The return values of <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a81d31063c72da7bfcb2e75aeda9cad32">image_malloc</a> and <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a4b550f819daa4e0553c2272de4d40f5d">image_realloc</a> are identical to the return values of <code>malloc</code> and <code>realloc</code>. The return values of <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a81d31063c72da7bfcb2e75aeda9cad32">image_malloc</a> and <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a7e81e4662ea07b93e9380f5f78fee890">image_free</a> differ from the return values of <code>memcpy</code> and <code>free</code> in that the return values of <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a4562078dc2326b0315c410d733d38030">image_memcpy</a> and <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html#a7e81e4662ea07b93e9380f5f78fee890">image_free</a> can also indicate failure.</p>
 <p>The callbacks and their parameters, along with a struct and an <code>ENUM</code> required for their use, are described below.</p>
-<p><b>Callback struct and <code>ENUM:</b></code> </p>
+<p><b>Callback struct and <code>ENUM:</code></b></p>
 <p>The callback functions set up by <a class="el" href="#ga14ea3598215afd078b964b672b40d63c" title="Sets the callbacks for working with file images.">H5Pset_file_image_callbacks()</a> use a struct and an <code>ENUM</code> that are defined as follows</p>
 <p>The struct <a class="el" href="struct_h5_f_d__file__image__callbacks__t.html">H5FD_file_image_callbacks_t</a> serves as a container for the callback functions and a pointer to user-supplied data. The struct is defined as follows: </p><div class="fragment"><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
 <div class="line">    <span class="keywordtype">void</span> *(*image_malloc)(<span class="keywordtype">size_t</span> size, <a class="code hl_enumeration" href="_h5_f_dpublic_8h.html#aa95ee1806ea4db9f035cd53844c008dd">H5FD_file_image_op_t</a> file_image_op, <span class="keywordtype">void</span> *udata);</div>
@@ -4912,7 +4912,7 @@ Failure Modes:<ul>
 <dl class="section return"><dt>Returns</dt><dd>Returns a non-negative value if successful; otherwise, returns a negative value.</dd></dl>
 <p><a class="el" href="#gab4a4a788af5b6e88381dda0df2efbf19" title="Sets a callback function to invoke when an object flush occurs in the file.">H5Pset_object_flush_cb()</a> sets the callback function to invoke in the file access property list <code class="param">plist_id</code> whenever an object flush occurs in the file. Library objects are group, dataset, and committed datatype.</p>
 <p>The callback function <code class="param">func</code> must conform to the prototype defined below: </p><div class="fragment"><div class="line"><span class="keyword">typedef</span> <a class="code hl_typedef" href="_h5public_8h.html#a3b079ecf932a5c599499cf7e298af160">herr_t</a> (*<a class="code hl_typedef" href="_h5_fpublic_8h.html#a07cc80d29d745646218aa8cb068cf944">H5F_flush_cb_t</a>)(<a class="code hl_typedef" href="_h5_ipublic_8h.html#a0045db7ff9c22ad35db6ae91662e1943">hid_t</a> object_id, <span class="keywordtype">void</span> *user_data)</div>
-<div class="ttc" id="a_h5_fpublic_8h_html_a07cc80d29d745646218aa8cb068cf944"><div class="ttname"><a href="_h5_fpublic_8h.html#a07cc80d29d745646218aa8cb068cf944">H5F_flush_cb_t</a></div><div class="ttdeci">herr_t(* H5F_flush_cb_t)(hid_t object_id, void *udata)</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:233</div></div>
+<div class="ttc" id="a_h5_fpublic_8h_html_a07cc80d29d745646218aa8cb068cf944"><div class="ttname"><a href="_h5_fpublic_8h.html#a07cc80d29d745646218aa8cb068cf944">H5F_flush_cb_t</a></div><div class="ttdeci">herr_t(* H5F_flush_cb_t)(hid_t object_id, void *udata)</div><div class="ttdef"><b>Definition</b> H5Fpublic.h:238</div></div>
 </div><!-- fragment --><p>The parameters of the callback function, per the above prototypes, are defined as follows:</p><ul>
 <li><code>object_id</code> is the identifier of the object which has just been flushed.</li>
 <li><code>user_data</code> is the user-defined input data for the callback function.</li>
