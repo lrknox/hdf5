@@ -50,7 +50,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="HDFG-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">HDF5<span id="projectnumber">&#160;Last Updated on 2026-01-21</span>
+   <div id="projectname">HDF5<span id="projectnumber">&#160;Last Updated on 2026-01-30</span>
    </div>
    <div id="projectbrief">The HDF5 Field Guide</div>
   </td>
@@ -262,17 +262,17 @@ Tasks:</h1>
 <li>Update as needed.</li>
 </ul>
 </li>
-<li>Change the <b>support</b> branch to X.Y.{Z+1}-1 (&lt;dash&gt;1) by editing <a href="https://github.com/HDFGroup/hdf5/blob/develop/src/H5public.h">src/H5public.h</a>:<ul>
+<li>Change the <b>support</b> branch to X.Y.{Z+1} by editing <a href="https://github.com/HDFGroup/hdf5/blob/develop/src/H5public.h">src/H5public.h</a>:<ul>
 <li><code>$ git checkout hdf5_X_Y</code></li>
 <li>Edit <code><a class="el" href="_h5public_8h.html">src/H5public.h</a></code> to update version defines: <code>H5_VERS_MAJOR</code>, <code>H5_VERS_MINOR</code>, <code>H5_VERS_RELEASE</code>, <code>H5_VERS_SUBRELEASE</code>, <code>H5_VERS_STR</code>, and <code>H5_VERS_INFO</code></li>
 <li><code>$ git commit -m "Updated support branch version number to X.Y.{Z+1}-1"</code></li>
 <li><code>$ git push</code></li>
 </ul>
 </li>
-<li>Change the <b>release preparation branch</b>'s version number to X.Y.Z.1 by editing <a href="https://github.com/HDFGroup/hdf5/blob/develop/src/H5public.h">src/H5public.h</a>:<ul>
+<li>Change the <b>release preparation branch</b>'s version number to X.Y.Z by editing <a href="https://github.com/HDFGroup/hdf5/blob/develop/src/H5public.h">src/H5public.h</a>:<ul>
 <li><code>$ git checkout hdf5_X_Y_Z;</code></li>
 <li>Edit <code><a class="el" href="_h5public_8h.html">src/H5public.h</a></code> to update version defines: <code>H5_VERS_MAJOR</code>, <code>H5_VERS_MINOR</code>, <code>H5_VERS_RELEASE</code>, <code>H5_VERS_SUBRELEASE</code>, <code>H5_VERS_STR</code>, and <code>H5_VERS_INFO</code></li>
-<li><code>$ git commit -m "Updated release preparation branch version number to X.Y.Z.1"</code></li>
+<li><code>$ git commit -m "Updated release preparation branch version number to X.Y.Z"</code></li>
 <li><code>$ git push</code></li>
 </ul>
 </li>
