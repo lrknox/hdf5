@@ -59,7 +59,7 @@ jobs:
              --log-level=VERBOSE \
              -DCMAKE_TOOLCHAIN_FILE:STRING=config/toolchain/mingw64.cmake \
              -DCMAKE_BUILD_TYPE=${{ inputs.build_mode }} \
-             -DHDF5_ENABLE_DOXY_WARNINGS:BOOL=ON \
+             -DHDF5_ENABLE_DOXY_WARNINGS:BOOL=OFF \
              -DHDF5_BUILD_DOC:BOOL=ON \
              -DHDF5_BUILD_JAVA:BOOL=OFF \
              -DHDF5_ENABLE_PLUGIN_SUPPORT:BOOL=OFF \

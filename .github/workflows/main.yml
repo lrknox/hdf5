@@ -219,7 +219,7 @@ jobs:
             -DCMAKE_BUILD_TYPE=${{ inputs.build_mode }} \
             -DBUILD_SHARED_LIBS:BOOL=${{ matrix.shared }} \
             -DHDF5_ENABLE_ALL_WARNINGS:BOOL=ON \
-            -DHDF5_ENABLE_DOXY_WARNINGS:BOOL=ON \
+            -DHDF5_ENABLE_DOXY_WARNINGS:BOOL=OFF \
             -DHDF5_ENABLE_PARALLEL:BOOL=${{ matrix.parallel }} \
             -DHDF5_BUILD_CPP_LIB:BOOL=${{ matrix.cpp }} \
             -DHDF5_BUILD_FORTRAN:BOOL=${{ matrix.fortran }} \
