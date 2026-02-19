@@ -9,14 +9,14 @@ on:
         description: 'Ignore has_changes check'
         type: string
         required: false
-        default: check
+        default: ignore
   workflow_call:
     inputs:
       use_ignore:
         description: 'Ignore has_changes check'
         type: string
         required: false
-        default: check
+        default: ignore
     outputs:
       has_changes:
         description: "Whether there were changes the previous day"
