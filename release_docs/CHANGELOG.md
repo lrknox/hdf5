@@ -1,4 +1,4 @@
-v2.1.0 --- February 10, 2026
+v2.1.0 --- February 19, 2026
 
 # 🔺 HDF5 Changelog
 All notable changes to this project will be documented in this file. This document describes the differences between this release and the previous
