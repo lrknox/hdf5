@@ -1,6 +1,6 @@
 name: hdf5 publish release
 
-# Triggers the workflow on demand
+# Triggers the workflow on demand only
 on:
   workflow_dispatch:
     inputs:
@@ -17,15 +17,23 @@ on:
         type: string
         required: true
       dry_run:
-        description: Dry run mode (skip S3 upload)
+        description: Dry run mode (skip S3 upload) — used by publish-tag job only
         type: boolean
         default: false
+      release_id:
+        description: >
+          Draft Release ID (from the GitHub release URL or API). When provided,
+          runs the dry-run draft job instead of publish-tag, fetching assets by
+          Release ID so that draft releases (invisible to the tag API) are accessible.
+        type: string
+        required: false
 
 permissions:
   contents: read
 
 jobs:
   publish-tag:
+    if: inputs.release_id == ''
     runs-on: ubuntu-latest
     timeout-minutes: 30
     
@@ -275,3 +283,155 @@ jobs:
             echo "📖 Documentation: s3://${{ secrets.AWS_S3_BUCKET }}/${{ vars.TARGET_PATH }}/${{ inputs.target_dir }}/documentation/doxygen"
             echo "📊 Reports: s3://${{ secrets.AWS_S3_BUCKET }}/${{ vars.TARGET_PATH }}/${{ inputs.target_dir }}/compat_report"
           fi
+
+  # Dry-run job for debugging draft releases. Always on-demand only, never
+  # uploads to S3. Uses the Release ID (not the tag) to fetch assets so that
+  # draft releases — which are invisible to the tag-based GitHub API — are
+  # fully accessible.
+  upload-draft-to-s3:
+    if: inputs.release_id != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE
+      - name: Get Sources
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        with:
+          fetch-depth: 0
+          ref: '${{ github.head_ref || github.ref_name }}'
+
+      - name: Create download directory
+        run: mkdir -p HDF5
+
+      - name: Download Assets using GitHub API via Release ID
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          echo "📥 Fetching assets for release ID: ${{ inputs.release_id }} (tag: ${{ inputs.use_tag }})"
+
+          # Fetch the asset list for this specific release ID — works for drafts
+          assets=$(gh api repos/${{ github.repository }}/releases/${{ inputs.release_id }}/assets)
+          asset_count=$(echo "$assets" | jq '. | length')
+          echo "Found ${asset_count} assets"
+
+          cd HDF5
+          # Download each asset by name using the API URL with octet-stream Accept header
+          echo "$assets" | jq -c '.[]' | while IFS= read -r asset; do
+            url=$(echo "$asset" | jq -r '.url')
+            name=$(echo "$asset" | jq -r '.name')
+            echo "📦 Downloading: $name"
+            curl -sL \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/octet-stream" \
+              "$url" -o "$name"
+          done
+          cd ..
+
+      - name: Verify downloaded files
+        run: |
+          set -euo pipefail
+          echo "📁 Downloaded files:"
+          ls -la HDF5/
+
+          EXPECTED_FILES=("${{ inputs.file_name }}.doxygen.zip" "${{ inputs.file_name }}.html.abi.reports.tar.gz")
+          for file in "${EXPECTED_FILES[@]}"; do
+            if [ ! -f "HDF5/$file" ]; then
+              echo "⚠️  Warning: Expected file not found: $file"
+            else
+              echo "✅ Found: $file"
+            fi
+          done
+
+      - name: Generate index.html for downloads directory
+        run: |
+          set -euo pipefail
+          echo "📄 Generating index.html for downloads directory..."
+          chmod +x .github/scripts/generate-index-html.sh
+          .github/scripts/generate-index-html.sh \
+            "./HDF5" \
+            "HDF5 ${{ inputs.use_tag }} - Downloads" \
+            "Release binaries, source code, and documentation packages for HDF5 ${{ inputs.use_tag }}" \
+            "../"
+          echo "✅ Downloads index.html generated"
+
+      - name: Process documentation
+        run: |
+          set -euo pipefail
+          DOC_FILE="HDF5/${{ inputs.file_name }}.doxygen.zip"
+          if [ -f "$DOC_FILE" ]; then
+            echo "📚 Processing documentation..."
+            unzip -q "$DOC_FILE"
+            if [ -d "${{ inputs.file_name }}.doxygen" ]; then
+              echo "✅ Documentation extracted successfully"
+            else
+              echo "❌ Documentation extraction failed"
+              exit 1
+            fi
+          else
+            echo "⚠️  Documentation file not found, skipping..."
+          fi
+
+      - name: Generate index.html for documentation directory
+        run: |
+          set -euo pipefail
+          if [ -d "${{ inputs.file_name }}.doxygen" ]; then
+            echo "📄 Generating index.html for documentation directory..."
+            .github/scripts/generate-index-html.sh \
+              "./${{ inputs.file_name }}.doxygen" \
+              "HDF5 ${{ inputs.use_tag }} - Documentation" \
+              "Doxygen API documentation for HDF5 ${{ inputs.use_tag }}" \
+              "../../"
+            echo "✅ Documentation index.html generated"
+          else
+            echo "⚠️  No documentation directory found, skipping index generation..."
+          fi
+
+      - name: Process compatibility reports
+        run: |
+          set -euo pipefail
+          COMPAT_FILE="HDF5/${{ inputs.file_name }}.html.abi.reports.tar.gz"
+          if [ -f "$COMPAT_FILE" ]; then
+            echo "📊 Processing compatibility reports..."
+            tar -xzf "$COMPAT_FILE"
+            if [ -d "hdf5" ]; then
+              echo "✅ Compatibility reports extracted successfully"
+            else
+              echo "❌ Compatibility reports extraction failed"
+              exit 1
+            fi
+          else
+            echo "⚠️  Compatibility reports file not found, skipping..."
+          fi
+
+      - name: Generate index.html for compatibility reports directory
+        run: |
+          set -euo pipefail
+          if [ -d "hdf5" ]; then
+            echo "📄 Generating index.html for compatibility reports directory..."
+            .github/scripts/generate-index-html.sh \
+              "./hdf5" \
+              "HDF5 ${{ inputs.use_tag }} - Compatibility Reports" \
+              "ABI/API compatibility reports for HDF5 ${{ inputs.use_tag }}" \
+              "../"
+            echo "✅ Compatibility reports index.html generated"
+          else
+            echo "⚠️  No compatibility reports directory found, skipping index generation..."
+          fi
+
+      - name: Summary
+        run: |
+          set -euo pipefail
+          echo "🎉 HDF5 Draft Release Dry-Run Summary"
+          echo "======================================"
+          echo "🏷️  Release ID: ${{ inputs.release_id }}"
+          echo "🏷️  Tag: ${{ inputs.use_tag }}"
+          echo "📁 File Base: ${{ inputs.file_name }}"
+          echo "🎯 Target Directory: ${{ inputs.target_dir }}"
+          echo ""
+          echo "ℹ️  Dry-run complete — no files were uploaded to S3"
+          echo "    Would have published to:"
+          echo "    📍 Downloads: s3://${{ secrets.AWS_S3_BUCKET }}/${{ vars.TARGET_PATH }}/${{ inputs.target_dir }}/downloads"
+          echo "    📖 Documentation: s3://${{ secrets.AWS_S3_BUCKET }}/${{ vars.TARGET_PATH }}/${{ inputs.target_dir }}/documentation/doxygen"
+          echo "    📊 Reports: s3://${{ secrets.AWS_S3_BUCKET }}/${{ vars.TARGET_PATH }}/${{ inputs.target_dir }}/compat_report"
