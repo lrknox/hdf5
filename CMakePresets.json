@@ -356,7 +356,10 @@
         "ci-CPP",
         "ci-Java",
         "ci-StdShar"
-      ]
+      ],
+      "cacheVariables": {
+        "HDF5_ENABLE_PLUGIN_SUPPORT": "OFF"
+      }
     },
     {
       "name": "ci-StdShar-MSVC-FFM",
