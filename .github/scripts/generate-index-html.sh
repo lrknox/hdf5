@@ -368,3 +368,6 @@ sed -i.bak "/FILE_LIST_PLACEHOLDER/d" "$OUTPUT_FILE"
 rm -f "$OUTPUT_FILE.bak"
 
 echo "✅ Generated index.html at: $OUTPUT_FILE"
+echo ""
+cat $OUTPUT_FILE
+echo ""
