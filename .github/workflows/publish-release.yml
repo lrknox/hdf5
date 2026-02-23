@@ -306,7 +306,7 @@ jobs:
 
       - name: Download Assets using GitHub API via Release ID
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           set -euo pipefail
           echo "📥 Fetching assets for release ID: ${{ inputs.release_id }} (tag: ${{ inputs.use_tag }})"
