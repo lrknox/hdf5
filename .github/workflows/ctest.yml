@@ -513,6 +513,13 @@ jobs:
           cp ${{ runner.workspace }}/hdf5/build/${{ steps.run-ctest.outputs.ACTIVE_PRESET }}/*.rpm ${{ runner.workspace }}/buildrpm/${{ steps.set-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.rpm
         shell: bash
 
+      - name: Publish spec file (Linux)
+        id: publish-ctest-spec-file
+        run: |
+          mkdir "${{ runner.workspace }}/buildspec"
+          cp ${{ runner.workspace }}/hdf5/build/${{ steps.run-ctest.outputs.ACTIVE_PRESET }}/_CPack_Packages/Linux/RPM/SPECS/*.spec ${{ runner.workspace }}/buildspec/
+        shell: bash
+
       - name: List files in the space (Linux)
         run: |
               ls ${{ github.workspace }}
