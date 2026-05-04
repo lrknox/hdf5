@@ -547,6 +547,13 @@ jobs:
               path: ${{ runner.workspace }}/buildrpm/${{ steps.set-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.rpm
               if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
 
+      - name: Save published spec file (Linux)
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v5
+        with:
+              name: spec-ubuntu-2404_gcc
+              path: ${{ runner.workspace }}/buildspec/${{ steps.set-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.spec.tar.gz
+              if-no-files-found: error # 'warn' or 'ignore' are also available, defaults to `warn`
+
       # Save doxygen files created by CTest script
       - name: Save published doxygen (Linux)
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v5

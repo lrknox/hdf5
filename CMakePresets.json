@@ -204,7 +204,7 @@
       "name": "ci-PluginsVars",
       "hidden": true,
       "cacheVariables": {
-        "HDF5_ENABLE_PLUGIN_SUPPORT": "ON",
+        "HDF5_ENABLE_PLUGIN_SUPPORT": "OFF",
         "H5PL_ALLOW_EXTERNAL_SUPPORT": {
           "type": "STRING",
           "value": "TGZ"

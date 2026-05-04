@@ -139,6 +139,12 @@ jobs:
               name: rpm-ubuntu-2404_gcc-binary
               path: ${{ github.workspace }}
 
+      - name: Get published spec file (Linux)
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+              name: spec-ubuntu-2404_gcc
+              path: ${{ github.workspace }}
+
       - name: Get published binary (Linux S3)
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
@@ -193,6 +199,7 @@ jobs:
           sha256sum ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.tar.gz >> ${{ steps.get-file-base.outputs.FILE_BASE }}.sha256sums.txt
           sha256sum ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.deb >> ${{ steps.get-file-base.outputs.FILE_BASE }}.sha256sums.txt
           sha256sum ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.rpm >> ${{ steps.get-file-base.outputs.FILE_BASE }}.sha256sums.txt
+          sha256sum ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.spec.tar.gz >> ${{ steps.get-file-base.outputs.FILE_BASE }}.sha256sums.txt
           sha256sum ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc_s3.tar.gz >> ${{ steps.get-file-base.outputs.FILE_BASE }}.sha256sums.txt
           sha256sum ${{ steps.get-file-base.outputs.FILE_BASE }}-win-vs2022_cl.zip >> ${{ steps.get-file-base.outputs.FILE_BASE }}.sha256sums.txt
           sha256sum ${{ steps.get-file-base.outputs.FILE_BASE }}-win-vs2022_cl.msi >> ${{ steps.get-file-base.outputs.FILE_BASE }}.sha256sums.txt
@@ -235,6 +242,7 @@ jobs:
               ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.tar.gz
               ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.deb
               ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.rpm
+              ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.spec.tar.gz
               ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc_s3.tar.gz
               ${{ steps.get-file-base.outputs.FILE_BASE }}-win-vs2022_cl.zip
               ${{ steps.get-file-base.outputs.FILE_BASE }}-win-vs2022_cl.msi
@@ -279,6 +287,7 @@ jobs:
               ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.tar.gz
               ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.deb
               ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.rpm
+              ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.spec.tar.gz
               ${{ steps.get-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc_s3.tar.gz
               ${{ steps.get-file-base.outputs.FILE_BASE }}-win-vs2022_cl.zip
               ${{ steps.get-file-base.outputs.FILE_BASE }}-win-vs2022_cl.msi
