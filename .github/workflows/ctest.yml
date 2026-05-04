@@ -517,7 +517,8 @@ jobs:
         id: publish-ctest-spec-file
         run: |
           mkdir "${{ runner.workspace }}/buildspec"
-          cp ${{ runner.workspace }}/hdf5/build/${{ steps.run-ctest.outputs.ACTIVE_PRESET }}/_CPack_Packages/Linux/RPM/SPECS/*.spec ${{ runner.workspace }}/buildspec/
+          tar -czf ${{ runner.workspace }}/buildspec/${{ steps.set-file-base.outputs.FILE_BASE }}-ubuntu-2404_gcc.spec.tar.gz \
+            -C ${{ runner.workspace }}/hdf5/build/${{ steps.run-ctest.outputs.ACTIVE_PRESET }}/_CPack_Packages/Linux/RPM/SPECS .
         shell: bash
 
       - name: List files in the space (Linux)
