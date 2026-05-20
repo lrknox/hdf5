@@ -290,6 +290,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install ninja-build graphviz curl
 
+      - name: Install Clang 22
+        uses: KyleMayes/install-llvm-action@v2
+        with:
+          version: "22"
+
       - name: Check Clang Version
         shell: bash
         run: |
