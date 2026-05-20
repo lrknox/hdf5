@@ -291,9 +291,17 @@ jobs:
           sudo apt-get install ninja-build graphviz curl
 
       - name: Install Clang 22
-        uses: KyleMayes/install-llvm-action@v2
-        with:
-          version: "22"
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 22
+          sudo apt-get install -y clang-22 clang++-22
+
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 22
+          sudo apt-get install -y clang-22 clang++-22
 
       - name: Check Clang Version
         shell: bash
@@ -342,6 +350,8 @@ jobs:
           cd "${{ runner.workspace }}/build"
           cmake -C ${{ github.workspace }}/hdfsrc/config/cmake/cacheinit.cmake \
                -G Ninja \
+               -DCMAKE_C_COMPILER=clang-22 \
+               -DCMAKE_CXX_COMPILER=clang++-22 \
                -DCMAKE_BUILD_TYPE=Developer \
                -DBUILD_SHARED_LIBS=ON \
                -DHDF5_ENABLE_ALL_WARNINGS=ON \
