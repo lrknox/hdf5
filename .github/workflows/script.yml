@@ -736,7 +736,7 @@ jobs:
         shell: bash
         run: |
           # which clang
-          clang -v
+          clang-22 -v
 
       - name: Install CMake
         uses: lukka/get-cmake@7bfc9baacbbdcb5e37957ad05c3546b3e222be3c # latest

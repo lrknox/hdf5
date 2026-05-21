@@ -301,7 +301,7 @@ jobs:
         shell: bash
         run: |
           # which clang
-          clang -v
+          clang-22 -v
 
       - name: Check CMake Version
         shell: bash
