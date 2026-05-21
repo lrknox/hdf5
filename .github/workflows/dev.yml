@@ -300,7 +300,7 @@ jobs:
       - name: Check Clang Version
         shell: bash
         run: |
-          which clang
+          # which clang
           clang -v
 
       - name: Check CMake Version
@@ -344,8 +344,6 @@ jobs:
           cd "${{ runner.workspace }}/build"
           cmake -C ${{ github.workspace }}/hdfsrc/config/cmake/cacheinit.cmake \
                -G Ninja \
-               -DCMAKE_C_COMPILER=clang-22 \
-               -DCMAKE_CXX_COMPILER=clang++-22 \
                -DCMAKE_BUILD_TYPE=Developer \
                -DBUILD_SHARED_LIBS=ON \
                -DHDF5_ENABLE_ALL_WARNINGS=ON \
@@ -358,8 +356,8 @@ jobs:
                -DHDF5_BUILD_DOC=OFF \
                -DLIBAEC_USE_LOCALCONTENT=OFF \
                -DZLIB_USE_LOCALCONTENT=OFF \
-               -DCMAKE_C_COMPILER:STRING=clang \
-               -DCMAKE_CXX_COMPILER:STRING=clang++ \
+               -DCMAKE_C_COMPILER:STRING=clang-22 \
+               -DCMAKE_CXX_COMPILER:STRING=clang++-22 \
                -DHDF_TEST_EXPRESS=0 \
                ${{ github.workspace }}/hdfsrc
 

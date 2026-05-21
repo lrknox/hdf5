@@ -735,7 +735,7 @@ jobs:
       - name: check clang version
         shell: bash
         run: |
-          which clang
+          # which clang
           clang -v
 
       - name: Install CMake
