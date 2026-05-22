@@ -256,7 +256,7 @@ jobs:
       - name: Install Dependencies (MacOS_latest)
         run: brew install ninja curl
 
-      - name Install Clang latest stable
+      - name: Install Clang latest stable
         run: brew install llvm
 
       - name: check clang version
