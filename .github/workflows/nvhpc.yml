@@ -70,7 +70,6 @@ jobs:
           cd "${{ runner.workspace }}/build"
           cmake -C $GITHUB_WORKSPACE/config/cmake/cacheinit.cmake -G Ninja \
           -DCMAKE_BUILD_TYPE=${{ inputs.build_mode }} \
-          -DCMAKE_C_FLAGS="-Mnovect" \
           -DHDF5_ENABLE_PARALLEL:BOOL=ON \
           -DMPIEXEC_NUMPROC_FLAG:STRING=-np \
           -DMPIEXEC_MAX_NUMPROCS:STRING=2 \
