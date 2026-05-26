@@ -3934,7 +3934,7 @@ test_conv_flt_1_hw_conv_from_flt16(void *hw_dst, unsigned char *src_buf, size_t 
 
     switch (dst_type) {
         case FLT_FLOAT16:
-            *((H5__Float16 *)hw_dst) = aligned;
+            *((H5__Float16 *)hw_dst) = (H5__Float16)aligned;
             break;
         case FLT_FLOAT:
             *((float *)hw_dst) = (float)aligned;
