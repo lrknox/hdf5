@@ -21,7 +21,7 @@ on:
       ref:
         description: "Git ref to checkout (branch, tag, or SHA)"
         required: false
-        default: "hdf5-2_1_1"
+        default: "2.1.1"
         type: string
 
 permissions:
@@ -42,8 +42,8 @@ jobs:
     steps:
       - name: Get Sources
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with: Get Sources
-          rsf: ${{ inpute.reft}}e0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ inputs.ref }}
 
       - name: Free Disk Space (Ubuntu)
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be # v1.3.1
