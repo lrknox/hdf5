@@ -13,7 +13,7 @@ on:
       build_mode:
         description: "release vs. debug build"
         required: false
-        default: "Debug"
+        default: "Release"
         type: choice
         options:
           - Release
@@ -35,9 +35,9 @@ jobs:
     name: "nvhpc ${{ inputs.build_mode }}"
     runs-on: ubuntu-latest
     env:
-      CUDAVERDOT: "13.1"
-      NVERDOT: "26.3"
-      NVERDASH: "26-3"
+      CUDAVERDOT: "13.0"
+      NVERDOT: "25.11"
+      NVERDASH: "25-11"
 
     steps:
       - name: Get Sources
