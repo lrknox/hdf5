@@ -157,11 +157,11 @@ static int without_hardware_g = 0;
             }                                                                                                \
                                                                                                              \
             if (n < SRC_PREC - 2) {                                                                          \
-                value1 = (TYPE)(value1 << 1);                                                      \
+                value1 = (TYPE)((uint64_t)value1 << 1);                                                      \
                 value2 = (TYPE)((value1 - 1) | value1);                                                      \
             }                                                                                                \
             else if (n == SRC_PREC - 2) { /*to avoid overflow of negative values for signed integer*/        \
-                value1 = (TYPE)(value1 << 1);                                                      \
+                value1 = (TYPE)((uint64_t)value1 << 1);                                                      \
                 value2 = (TYPE)((~value1) | value1);                                                         \
             }                                                                                                \
         }                                                                                                    \
@@ -176,7 +176,7 @@ static int without_hardware_g = 0;
                 saved_p += SRC_SIZE;                                                                         \
             }                                                                                                \
             if (n < SRC_PREC - 1)                                                                            \
-                value2 = (TYPE)(value2 << 1);                                                      \
+                value2 = (TYPE)((uint64_t)value2 << 1);                                                      \
         }                                                                                                    \
     } while (0)
 
@@ -5662,14 +5662,17 @@ test_conv_flt_1(const char *name, int run_test, hid_t src, hid_t dst)
                         (int)((dst_ebias + dst_msize) + (size_t)MIN(check_expo[2], check_expo[3])) - 1;
 
                     /* Re-scale the mantissas based on any exponent difference */
+                    /* Note: use pow() instead of ldexp() to avoid an LLVM bug in the
+                     * NVHPC compiler where ldexp() is incorrectly lowered to the AVX-512
+                     * instruction VSCALEFSD on non-AVX-512 targets. */
                     if (expo_diff_real != 0)
-                        check_mant[0] = ldexp(check_mant[0], expo_diff_real);
+                        check_mant[0] = check_mant[0] * pow(2.0, (double)expo_diff_real);
                     if (expo_diff_imag != 0)
-                        check_mant[2] = ldexp(check_mant[2], expo_diff_imag);
+                        check_mant[2] = check_mant[2] * pow(2.0, (double)expo_diff_imag);
 
                     /* Compute the proper epsilon */
-                    epsilon_real = ldexp(epsilon_real, -valid_bits_real);
-                    epsilon_imag = ldexp(epsilon_imag, -valid_bits_imag);
+                    epsilon_real = epsilon_real * pow(2.0, -(double)valid_bits_real);
+                    epsilon_imag = epsilon_imag * pow(2.0, -(double)valid_bits_imag);
 
                     /* Check for "close enough" fit with scaled epsilon value */
                     if (fabs(check_mant[0] - check_mant[1]) <= epsilon_real &&
@@ -5692,10 +5695,10 @@ test_conv_flt_1(const char *name, int run_test, hid_t src, hid_t dst)
 
                 /* Re-scale the mantissas based on any exponent difference */
                 if (expo_diff != 0)
-                    check_mant[0] = ldexp(check_mant[0], expo_diff);
+                    check_mant[0] = check_mant[0] * pow(2.0, -(double)expo_diff);
 
                 /* Compute the proper epsilon */
-                epsilon = ldexp(epsilon, -valid_bits);
+                epsilon = epsilon * pow(2.0, -(double)valid_bits);
 
                 /* Check for "close enough" fit with scaled epsilon value */
                 if (fabs(check_mant[0] - check_mant[1]) <= epsilon)
