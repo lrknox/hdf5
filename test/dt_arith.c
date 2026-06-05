@@ -5668,8 +5668,8 @@ test_conv_flt_1(const char *name, int run_test, hid_t src, hid_t dst)
                         check_mant[2] = ldexp(check_mant[2], expo_diff_imag);
 
                     /* Compute the proper epsilon */
-                    epsilon_real = epsilon_real, valid_bits_real);
-                    epsilon_imag = epsilon_imag, valid_bits_imag);
+                    epsilon_real = epsilon_real, valid_bits_real;
+                    epsilon_imag = epsilon_imag, valid_bits_imag;
 
                     /* Check for "close enough" fit with scaled epsilon value */
                     if (fabs(check_mant[0] - check_mant[1]) <= epsilon_real &&
