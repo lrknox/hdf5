@@ -91,8 +91,9 @@ jobs:
           -DHDF5_BUILD_CPP_LIB:BOOL=OFF \
           -DHDF5_BUILD_FORTRAN:BOOL=ON \
           -DHDF5_BUILD_JAVA:BOOL=OFF \
-          -DCMAKE_C_FLAGS="-tp=znver3" \
-          -DCMAKE_Fortran_FLAGS="-tp=znver3" \
+          -DCMAKE_C_FLAGS="-tp=px" \
+          -DCMAKE_Fortran_FLAGS="-tp=px" \
+          -DCMAKE_CXX_FLAGS="-tp=px" \
           -DMPIEXEC_NUMPROC_FLAG:STRING=-np \
           -DMPIEXEC_MAX_NUMPROCS:STRING="2" \
           -DMPIEXEC_PREFLAGS:STRING="--mca;opal_warn_on_missing_libcuda;0" \
