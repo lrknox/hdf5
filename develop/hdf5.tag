@@ -86108,6 +86108,7 @@
     <docanchor file="_f_m_t4.html" title="III.G. Disk Format: Level 1G - Fractal Heap">subsec_fmt4_infra_fractalheap</docanchor>
     <docanchor file="_f_m_t4.html" title="III.H. Disk Format: Level 1H - Free-space Index">subsec_fmt4_infra_freespaceindex</docanchor>
     <docanchor file="_f_m_t4.html" title="III.I. Disk Format: Level 1I - Shared Object Header Message (SOHM) Master Table">subsec_fmt4_infra_sohm</docanchor>
+    <docanchor file="_f_m_t4.html" title="III.J. Disk Format: Level 1J - Metadata Cache Image Block">subsec_fmt4_infra_mdci</docanchor>
     <docanchor file="_f_m_t4.html" title="IV. Disk Format: Level 2 - Data Objects">sec_fmt4_dataobject</docanchor>
     <docanchor file="_f_m_t4.html" title="IV.A. Disk Format: Level 2A - Data Object Headers">subsec_fmt4_dataobject_hdr</docanchor>
     <docanchor file="_f_m_t4.html" title="IV.A.1 Disk Format: Level 2A1 - Data Object Header Prefix">subsec_fmt4_dataobject_hdr_prefix</docanchor>
@@ -86176,6 +86177,7 @@
     <docanchor file="_f_m_t4.html" title="IV.A.3.v. The Attribute Info Message">subsubsec_fmt4_dataobject_hdr_msg_attrinfo</docanchor>
     <docanchor file="_f_m_t4.html" title="IV.A.3.w. The Object Reference Count Message">subsubsec_fmt4_dataobject_hdr_msg_refcount</docanchor>
     <docanchor file="_f_m_t4.html" title="IV.A.3.x. The File Space Info Message">subsubsec_fmt4_dataobject_hdr_msg_fsinfo</docanchor>
+    <docanchor file="_f_m_t4.html" title="IV.A.3.y. The Metadata Cache Image Message">subsubsec_fmt4_dataobject_hdr_msg_mdci</docanchor>
     <docanchor file="_f_m_t4.html" title="IV.B. Disk Format: Level 2B - Data Object Data Storage">subsec_fmt4_dataobject_storage</docanchor>
     <docanchor file="_f_m_t4.html" title="V. Appendix A: Definitions">sec_fmt4_appendixa</docanchor>
     <docanchor file="_f_m_t4.html">FMT4UndefinedAddress</docanchor>
@@ -86383,6 +86385,8 @@
     <docanchor file="rel_spec_2x.html" title="Migrating from HDF5 1.14 to HDF5 2.x">sec_rel_spec_2x_migrate</docanchor>
     <docanchor file="rel_spec_2x.html">fileformat</docanchor>
     <docanchor file="rel_spec_2x.html" title="New Features in HDF5 Release 2.x">sec_rel_spec_2x_feat</docanchor>
+    <docanchor file="rel_spec_2x.html" title="In 2.2.0">subsubsec_in220</docanchor>
+    <docanchor file="rel_spec_2x.html" title="In 2.0.0">subsubsec_in200</docanchor>
   </compound>
   <compound kind="page">
     <name>CompTS</name>
@@ -86986,6 +86990,7 @@
     <docanchor file="rel_spec_2x_change.html" title="Software Changes from Release to Release in HDF5 2.x">sec_rel_spec_2x_change</docanchor>
     <docanchor file="rel_spec_2x_change.html" title="API Compatibility">subsec_rel_spec_2x_change_compat</docanchor>
     <docanchor file="rel_spec_2x_change.html" title="Changes between releases">subsec_rel_spec_2x_bw_releases</docanchor>
+    <docanchor file="rel_spec_2x_change.html" title="Release 2.2.0 versus Release 2.1.0">subsubsec_rel_spec_2x_change_22versus21</docanchor>
     <docanchor file="rel_spec_2x_change.html" title="Release 2.1.0 versus Release 2.0.0">subsubsec_rel_spec_2x_change_21versus20</docanchor>
     <docanchor file="rel_spec_2x_change.html" title="Release 2.0.0 versus Release 1.14.6">subsubsec_rel_spec_2x_change_20versus14_6</docanchor>
   </compound>
