@@ -135,6 +135,7 @@ jobs:
       GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
   test-deployed-maven-packages:
+    runs-on: ubuntu-latest
     steps:
     - name: Run deployed package tests
       shell: bash
