@@ -47,7 +47,7 @@
  <tr id="projectrow">
   <td id="projectlogo"><img alt="Logo" src="HDFG-logo.png"/></td>
   <td id="projectalign">
-   <div id="projectname">HDF5<span id="projectnumber">&#160;Last Updated on 2026-08-25</span>
+   <div id="projectname">HDF5<span id="projectnumber">&#160;Last Updated on 2026-09-23</span>
    </div>
    <div id="projectbrief">The HDF5 Field Guide</div>
   </td>
@@ -135,7 +135,164 @@ $(function(){initNavTree('group___h5_d.html','',''); });
 </div><!--header-->
 <div class="contents">
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Use the functions in this module to manage HDF5 datasets, including the transfer of data between memory and disk and the description of dataset properties. Datasets are used by other HDF5 APIs and referenced either by name or by a handle. Such handles can be obtained by either creating or opening the dataset. </p>
+<div class="textblock"><p>Use the functions in this module to manage HDF5 datasets, including the transfer of data between memory and disk and the description of dataset properties. Datasets are used by other HDF5 APIs and referenced either by name or by a handle. Such handles can be obtained by either creating or opening the dataset.</p>
+<p>Typical stages in the HDF5 dataset life cycle are shown below in introductory examples.</p>
+<table class="doxtable">
+<tr>
+<th>Create</th><th>Read</th></tr>
+<tr valign="top">
+<td><div class="fragment"><div class="line"><span class="lineno">   94</span>    {</div>
+<div class="line"><span class="lineno">   95</span>        __label__ fail_lcpl, fail_dset, fail_file;</div>
+<div class="line"><span class="lineno">   96</span>        <a class="code hl_typedef" href="_h5_ipublic_8h.html#a0045db7ff9c22ad35db6ae91662e1943">hid_t</a> file, lcpl, fspace, dset;</div>
+<div class="line"><span class="lineno">   97</span> </div>
+<div class="line"><span class="lineno">   98</span>        <span class="keywordtype">unsigned</span> mode        = <a class="code hl_define" href="_h5_fpublic_8h.html#a5a2d6726f9ad8d2bca8df2b817e5ad6a">H5F_ACC_TRUNC</a>;</div>
+<div class="line"><span class="lineno">   99</span>        <span class="keywordtype">char</span>     file_name[] = <span class="stringliteral">&quot;d1.h5&quot;</span>;</div>
+<div class="line"><span class="lineno">  100</span>        <span class="comment">// link names can be arbitrary Unicode strings</span></div>
+<div class="line"><span class="lineno">  101</span>        <span class="keywordtype">char</span> dset_name[] = <span class="stringliteral">&quot;σύνολο/δεδομένων&quot;</span>;</div>
+<div class="line"><span class="lineno">  102</span> </div>
+<div class="line"><span class="lineno">  103</span>        <span class="keywordflow">if</span> ((file = <a class="code hl_function" href="group___h5_f.html#gae64b51ee9ac0781bc4ccc599d98387f4">H5Fcreate</a>(file_name, mode, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  104</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  105</span>            <span class="keywordflow">goto</span> fail_file;</div>
+<div class="line"><span class="lineno">  106</span>        }</div>
+<div class="line"><span class="lineno">  107</span>        <span class="keywordflow">if</span> ((lcpl = <a class="code hl_function" href="group___p_l_c_r.html#gaf1b11da01d4d45d788c45f8bc5f0cbfa">H5Pcreate</a>(<a class="code hl_define" href="_h5_ppublic_8h.html#ad2c1d10104f0262c826350ccbf7c49f2">H5P_LINK_CREATE</a>)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  108</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  109</span>            <span class="keywordflow">goto</span> fail_lcpl;</div>
+<div class="line"><span class="lineno">  110</span>        }</div>
+<div class="line"><span class="lineno">  111</span>        <span class="comment">// use UTF-8 encoding for link names</span></div>
+<div class="line"><span class="lineno">  112</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="group___a_c_p_l.html#gad4fa8e2d17236786f770cf17eef908cc">H5Pset_char_encoding</a>(lcpl, <a class="code hl_enumvalue" href="_h5_tpublic_8h.html#a03755b8370672668ddc7063add28e71aa41685667f69bf81eb7de5dd5f452e658">H5T_CSET_UTF8</a>) &lt; 0) {</div>
+<div class="line"><span class="lineno">  113</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  114</span>            <span class="keywordflow">goto</span> fail_fspace;</div>
+<div class="line"><span class="lineno">  115</span>        }</div>
+<div class="line"><span class="lineno">  116</span>        <span class="comment">// create intermediate groups as needed</span></div>
+<div class="line"><span class="lineno">  117</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="group___l_c_p_l.html#ga66c4c5d3f34e5cf65d00e47a5387383c">H5Pset_create_intermediate_group</a>(lcpl, 1) &lt; 0) {</div>
+<div class="line"><span class="lineno">  118</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  119</span>            <span class="keywordflow">goto</span> fail_fspace;</div>
+<div class="line"><span class="lineno">  120</span>        }</div>
+<div class="line"><span class="lineno">  121</span>        <span class="comment">// create a 1D dataspace</span></div>
+<div class="line"><span class="lineno">  122</span>        <span class="keywordflow">if</span> ((fspace = <a class="code hl_function" href="group___h5_s.html#ga8e35eea5738b4805856eac7d595254ae">H5Screate_simple</a>(1, (<a class="code hl_typedef" href="_h5public_8h.html#a7f81cce70fb546af88da24d9285d3c1c">hsize_t</a>[]){10}, NULL)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  123</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  124</span>            <span class="keywordflow">goto</span> fail_fspace;</div>
+<div class="line"><span class="lineno">  125</span>        }</div>
+<div class="line"><span class="lineno">  126</span>        <span class="comment">// create a 32-bit integer dataset</span></div>
+<div class="line"><span class="lineno">  127</span>        <span class="keywordflow">if</span> ((dset = <a class="code hl_function" href="#gabf62045119f4e9c512d87d77f2f992df">H5Dcreate2</a>(file, dset_name, <a class="code hl_define" href="group___p_d_t_s_t_d.html#ga8db8c9c2bcc457f9f8526c8fcb81218b">H5T_STD_I32LE</a>, fspace, lcpl, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>)) ==</div>
+<div class="line"><span class="lineno">  128</span>            <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  129</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  130</span>            <span class="keywordflow">goto</span> fail_dset;</div>
+<div class="line"><span class="lineno">  131</span>        }</div>
+<div class="line"><span class="lineno">  132</span> </div>
+<div class="line"><span class="lineno">  133</span>        <a class="code hl_function" href="#gae47c3f38db49db127faf221624c30609">H5Dclose</a>(dset);</div>
+<div class="line"><span class="lineno">  134</span>fail_dset:</div>
+<div class="line"><span class="lineno">  135</span>        <a class="code hl_function" href="group___h5_s.html#ga2b53128a39c8f104c1c9c2a91590fcc1">H5Sclose</a>(fspace);</div>
+<div class="line"><span class="lineno">  136</span>fail_fspace:</div>
+<div class="line"><span class="lineno">  137</span>        <a class="code hl_function" href="group___p_l_c_r.html#ga5dce61149211d3ef319452aa598887fb">H5Pclose</a>(lcpl);</div>
+<div class="line"><span class="lineno">  138</span>fail_lcpl:</div>
+<div class="line"><span class="lineno">  139</span>        <a class="code hl_function" href="group___h5_f.html#gac55cd91d80822e4f8c2a7f04ea71b124">H5Fclose</a>(file);</div>
+<div class="line"><span class="lineno">  140</span>fail_file:;</div>
+<div class="line"><span class="lineno">  141</span>    }</div>
+</div><!-- fragment --> </td><td><div class="fragment"><div class="line"><span class="lineno">  145</span>    {</div>
+<div class="line"><span class="lineno">  146</span>        __label__ fail_dset, fail_file;</div>
+<div class="line"><span class="lineno">  147</span>        <a class="code hl_typedef" href="_h5_ipublic_8h.html#a0045db7ff9c22ad35db6ae91662e1943">hid_t</a> file, dset;</div>
+<div class="line"><span class="lineno">  148</span> </div>
+<div class="line"><span class="lineno">  149</span>        <span class="keywordtype">unsigned</span> mode        = <a class="code hl_define" href="_h5_fpublic_8h.html#a1c406ffa89f4acf5a332144a2683d394">H5F_ACC_RDONLY</a>;</div>
+<div class="line"><span class="lineno">  150</span>        <span class="keywordtype">char</span>     file_name[] = <span class="stringliteral">&quot;d1.h5&quot;</span>;</div>
+<div class="line"><span class="lineno">  151</span>        <span class="comment">// assume a priori knowledge of dataset name and size</span></div>
+<div class="line"><span class="lineno">  152</span>        <span class="keywordtype">char</span> dset_name[] = <span class="stringliteral">&quot;σύνολο/δεδομένων&quot;</span>;</div>
+<div class="line"><span class="lineno">  153</span>        <span class="keywordtype">int</span>  elts[10];</div>
+<div class="line"><span class="lineno">  154</span> </div>
+<div class="line"><span class="lineno">  155</span>        <span class="keywordflow">if</span> ((file = <a class="code hl_function" href="group___h5_f.html#gaa3f4f877b9bb591f3880423ed2bf44bc">H5Fopen</a>(file_name, mode, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  156</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  157</span>            <span class="keywordflow">goto</span> fail_file;</div>
+<div class="line"><span class="lineno">  158</span>        }</div>
+<div class="line"><span class="lineno">  159</span>        <span class="keywordflow">if</span> ((dset = <a class="code hl_function" href="#ga04198c4cf0b849ed3a8921f6c7169ee2">H5Dopen2</a>(file, dset_name, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  160</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  161</span>            <span class="keywordflow">goto</span> fail_dset;</div>
+<div class="line"><span class="lineno">  162</span>        }</div>
+<div class="line"><span class="lineno">  163</span>        <span class="comment">// read all dataset elements</span></div>
+<div class="line"><span class="lineno">  164</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="#ga8287d5a7be7b8e55ffeff68f7d26811c">H5Dread</a>(dset, <a class="code hl_define" href="group___p_d_t_n_a_t.html#ga3cf93ffc6782be68070ef8e00f219ec2">H5T_NATIVE_INT</a>, <a class="code hl_define" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, <a class="code hl_define" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>, elts) &lt; 0)</div>
+<div class="line"><span class="lineno">  165</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  166</span> </div>
+<div class="line"><span class="lineno">  167</span>        <span class="comment">// do something w/ the dataset elements</span></div>
+<div class="line"><span class="lineno">  168</span> </div>
+<div class="line"><span class="lineno">  169</span>        <a class="code hl_function" href="#gae47c3f38db49db127faf221624c30609">H5Dclose</a>(dset);</div>
+<div class="line"><span class="lineno">  170</span>fail_dset:</div>
+<div class="line"><span class="lineno">  171</span>        <a class="code hl_function" href="group___h5_f.html#gac55cd91d80822e4f8c2a7f04ea71b124">H5Fclose</a>(file);</div>
+<div class="line"><span class="lineno">  172</span>fail_file:;</div>
+<div class="line"><span class="lineno">  173</span>    }</div>
+</div><!-- fragment --> </td></tr>
+<tr>
+<th>Update</th><th>Delete</th></tr>
+<tr valign="top">
+<td><div class="fragment"><div class="line"><span class="lineno">  177</span>    {</div>
+<div class="line"><span class="lineno">  178</span>        __label__ fail_update, fail_fspace, fail_dset, fail_file;</div>
+<div class="line"><span class="lineno">  179</span>        <a class="code hl_typedef" href="_h5_ipublic_8h.html#a0045db7ff9c22ad35db6ae91662e1943">hid_t</a> file, dset, fspace;</div>
+<div class="line"><span class="lineno">  180</span> </div>
+<div class="line"><span class="lineno">  181</span>        <span class="keywordtype">unsigned</span> mode           = <a class="code hl_define" href="_h5_fpublic_8h.html#a402673dec5c537b27a49a9a8bd6140b4">H5F_ACC_RDWR</a>;</div>
+<div class="line"><span class="lineno">  182</span>        <span class="keywordtype">char</span>     file_name[]    = <span class="stringliteral">&quot;d1.h5&quot;</span>;</div>
+<div class="line"><span class="lineno">  183</span>        <span class="keywordtype">char</span>     dset_name[]    = <span class="stringliteral">&quot;σύνολο/δεδομένων&quot;</span>;</div>
+<div class="line"><span class="lineno">  184</span>        <span class="keywordtype">int</span>      new_elts[6][2] = {{-1, 1}, {-2, 2}, {-3, 3}, {-4, 4}, {-5, 5}, {-6, 6}};</div>
+<div class="line"><span class="lineno">  185</span> </div>
+<div class="line"><span class="lineno">  186</span>        <span class="keywordflow">if</span> ((file = <a class="code hl_function" href="group___h5_f.html#gaa3f4f877b9bb591f3880423ed2bf44bc">H5Fopen</a>(file_name, mode, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  187</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  188</span>            <span class="keywordflow">goto</span> fail_file;</div>
+<div class="line"><span class="lineno">  189</span>        }</div>
+<div class="line"><span class="lineno">  190</span>        <span class="keywordflow">if</span> ((dset = <a class="code hl_function" href="#ga04198c4cf0b849ed3a8921f6c7169ee2">H5Dopen2</a>(file, dset_name, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  191</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  192</span>            <span class="keywordflow">goto</span> fail_dset;</div>
+<div class="line"><span class="lineno">  193</span>        }</div>
+<div class="line"><span class="lineno">  194</span>        <span class="comment">// get the dataset&#39;s dataspace</span></div>
+<div class="line"><span class="lineno">  195</span>        <span class="keywordflow">if</span> ((fspace = <a class="code hl_function" href="#gad42a46be153d895d8c28a11ebf5a0d0a">H5Dget_space</a>(dset)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  196</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  197</span>            <span class="keywordflow">goto</span> fail_fspace;</div>
+<div class="line"><span class="lineno">  198</span>        }</div>
+<div class="line"><span class="lineno">  199</span>        <span class="comment">// select the first 5 elements in odd positions</span></div>
+<div class="line"><span class="lineno">  200</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="group___h5_s.html#ga6adfdf1b95dc108a65bf66e97d38536d">H5Sselect_hyperslab</a>(fspace, <a class="code hl_enumvalue" href="_h5_spublic_8h.html#a10093bab27cc5720efdab3186993da0fab90faf3dc59ecf6f28197ef471141550">H5S_SELECT_SET</a>, (<a class="code hl_typedef" href="_h5public_8h.html#a7f81cce70fb546af88da24d9285d3c1c">hsize_t</a>[]){1}, (<a class="code hl_typedef" href="_h5public_8h.html#a7f81cce70fb546af88da24d9285d3c1c">hsize_t</a>[]){2}, (<a class="code hl_typedef" href="_h5public_8h.html#a7f81cce70fb546af88da24d9285d3c1c">hsize_t</a>[]){5},</div>
+<div class="line"><span class="lineno">  201</span>                                NULL) &lt; 0) {</div>
+<div class="line"><span class="lineno">  202</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  203</span>            <span class="keywordflow">goto</span> fail_update;</div>
+<div class="line"><span class="lineno">  204</span>        }</div>
+<div class="line"><span class="lineno">  205</span> </div>
+<div class="line"><span class="lineno">  206</span>        <span class="comment">// (implicitly) select and write the first 5 elements of the second column of NEW_ELTS</span></div>
+<div class="line"><span class="lineno">  207</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="#ga98f44998b67587662af8b0d8a0a75906">H5Dwrite</a>(dset, <a class="code hl_define" href="group___p_d_t_n_a_t.html#ga3cf93ffc6782be68070ef8e00f219ec2">H5T_NATIVE_INT</a>, <a class="code hl_define" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, fspace, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>, new_elts) &lt; 0)</div>
+<div class="line"><span class="lineno">  208</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  209</span> </div>
+<div class="line"><span class="lineno">  210</span>fail_update:</div>
+<div class="line"><span class="lineno">  211</span>        <a class="code hl_function" href="group___h5_s.html#ga2b53128a39c8f104c1c9c2a91590fcc1">H5Sclose</a>(fspace);</div>
+<div class="line"><span class="lineno">  212</span>fail_fspace:</div>
+<div class="line"><span class="lineno">  213</span>        <a class="code hl_function" href="#gae47c3f38db49db127faf221624c30609">H5Dclose</a>(dset);</div>
+<div class="line"><span class="lineno">  214</span>fail_dset:</div>
+<div class="line"><span class="lineno">  215</span>        <a class="code hl_function" href="group___h5_f.html#gac55cd91d80822e4f8c2a7f04ea71b124">H5Fclose</a>(file);</div>
+<div class="line"><span class="lineno">  216</span>fail_file:;</div>
+<div class="line"><span class="lineno">  217</span>    }</div>
+</div><!-- fragment --> </td><td><div class="fragment"><div class="line"><span class="lineno">  221</span>    {</div>
+<div class="line"><span class="lineno">  222</span>        __label__ fail_delete, fail_file;</div>
+<div class="line"><span class="lineno">  223</span>        <a class="code hl_typedef" href="_h5_ipublic_8h.html#a0045db7ff9c22ad35db6ae91662e1943">hid_t</a> file;</div>
+<div class="line"><span class="lineno">  224</span> </div>
+<div class="line"><span class="lineno">  225</span>        <span class="keywordtype">unsigned</span> mode         = <a class="code hl_define" href="_h5_fpublic_8h.html#a402673dec5c537b27a49a9a8bd6140b4">H5F_ACC_RDWR</a>;</div>
+<div class="line"><span class="lineno">  226</span>        <span class="keywordtype">char</span>     file_name[]  = <span class="stringliteral">&quot;d1.h5&quot;</span>;</div>
+<div class="line"><span class="lineno">  227</span>        <span class="keywordtype">char</span>     group_name[] = <span class="stringliteral">&quot;σύνολο&quot;</span>;</div>
+<div class="line"><span class="lineno">  228</span>        <span class="keywordtype">char</span>     dset_name[]  = <span class="stringliteral">&quot;σύνολο/δεδομένων&quot;</span>;</div>
+<div class="line"><span class="lineno">  229</span> </div>
+<div class="line"><span class="lineno">  230</span>        <span class="keywordflow">if</span> ((file = <a class="code hl_function" href="group___h5_f.html#gaa3f4f877b9bb591f3880423ed2bf44bc">H5Fopen</a>(file_name, mode, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>)) == <a class="code hl_define" href="_h5_ipublic_8h.html#a01eab13dccc91afd6909d74dccb780ba">H5I_INVALID_HID</a>) {</div>
+<div class="line"><span class="lineno">  231</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  232</span>            <span class="keywordflow">goto</span> fail_file;</div>
+<div class="line"><span class="lineno">  233</span>        }</div>
+<div class="line"><span class="lineno">  234</span>        <span class="comment">// delete (unlink) the dataset</span></div>
+<div class="line"><span class="lineno">  235</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="group___h5_l.html#ga5b4e7f59f5d4bdae94fd8ce6875295cf">H5Ldelete</a>(file, dset_name, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>) &lt; 0) {</div>
+<div class="line"><span class="lineno">  236</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  237</span>            <span class="keywordflow">goto</span> fail_delete;</div>
+<div class="line"><span class="lineno">  238</span>        }</div>
+<div class="line"><span class="lineno">  239</span>        <span class="comment">// the previous call deletes (unlinks) only the dataset</span></div>
+<div class="line"><span class="lineno">  240</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="group___h5_l.html#ga5b4e7f59f5d4bdae94fd8ce6875295cf">H5Ldelete</a>(file, group_name, <a class="code hl_define" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>) &lt; 0) {</div>
+<div class="line"><span class="lineno">  241</span>            ret_val = EXIT_FAILURE;</div>
+<div class="line"><span class="lineno">  242</span>            <span class="keywordflow">goto</span> fail_delete;</div>
+<div class="line"><span class="lineno">  243</span>        }</div>
+<div class="line"><span class="lineno">  244</span> </div>
+<div class="line"><span class="lineno">  245</span>fail_delete:</div>
+<div class="line"><span class="lineno">  246</span>        <a class="code hl_function" href="group___h5_f.html#gac55cd91d80822e4f8c2a7f04ea71b124">H5Fclose</a>(file);</div>
+<div class="line"><span class="lineno">  247</span>fail_file:;</div>
+<div class="line"><span class="lineno">  248</span>    }</div>
+</div><!-- fragment --> </td></tr>
+</table>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
@@ -469,7 +626,7 @@ Functions</h2></td></tr>
 <p>The dataset's datatype and dataspace are specified by <code class="param">type_id</code> and <code class="param">space_id</code>, respectively. These are the datatype and dataspace of the dataset as it will exist in the file, which may differ from the datatype and dataspace in application memory.</p>
 <p>Names within a group are unique: <a class="el" href="#ga6b86f2683ae6a78d48d33c45257744a2" title="Creates a dataset at the specified location.">H5Dcreate1()</a> will return an error if a link with the name specified in name already exists at the location specified in <code class="param">loc_id</code>.</p>
 <p>As is the case for any object in a group, the length of a dataset name is not limited.</p>
-<p><code class="param">dcpl_id</code> is an <a class="el" href="_h5_ppublic_8h.html#afcd7f8186c404f3a1d768632eacba102">H5P_DATASET_CREATE</a> property list created with <code class="param"><a class="el" href="#ga6b86f2683ae6a78d48d33c45257744a2" title="Creates a dataset at the specified location.">H5Dcreate1()</a></code> and initialized with various property list functions described in Property List Interface.</p>
+<p><code class="param">dcpl_id</code> is an <a class="el" href="_h5_ppublic_8h.html#afcd7f8186c404f3a1d768632eacba102">H5P_DATASET_CREATE</a> property list created with <code class="param">H5reate1()</code> and initialized with various property list functions described in Property List Interface.</p>
 <p><a class="el" href="#ga0647ba4bbd26d5230cc07f3a5685b2cf">H5Dcreate()</a> and <a class="el" href="#ga15a77e82383d821fee8ecbf9ab8408cb" title="Creates a dataset in a file without linking it into the file structure.">H5Dcreate_anon()</a> return an error if the dataset's datatype includes a variable-length (VL) datatype and the fill value is undefined, i.e., set to <code>NULL</code> in the dataset creation property list. Such a VL datatype may be directly included, indirectly included as part of a compound or array datatype, or indirectly included as part of a nested compound or array datatype.</p>
 <p><a class="el" href="#ga0647ba4bbd26d5230cc07f3a5685b2cf">H5Dcreate()</a> and <a class="el" href="#ga15a77e82383d821fee8ecbf9ab8408cb" title="Creates a dataset in a file without linking it into the file structure.">H5Dcreate_anon()</a> return a dataset identifier for success or a negative value for failure. The dataset identifier should eventually be closed by calling <a class="el" href="#gae47c3f38db49db127faf221624c30609" title="Closes the specified dataset.">H5Dclose()</a> to release the resources it uses.</p>
 <p>See <a class="el" href="#ga15a77e82383d821fee8ecbf9ab8408cb" title="Creates a dataset in a file without linking it into the file structure.">H5Dcreate_anon()</a> for a discussion of the differences between <a class="el" href="#ga0647ba4bbd26d5230cc07f3a5685b2cf">H5Dcreate()</a> and <a class="el" href="#ga15a77e82383d821fee8ecbf9ab8408cb" title="Creates a dataset in a file without linking it into the file structure.">H5Dcreate_anon()</a>.</p>
@@ -1518,24 +1675,20 @@ Applications sometimes write data only to portions of an allocated dataset. It i
 <dl class="section return"><dt>Returns</dt><dd>Returns a non-negative value if successful; otherwise, returns a negative value.</dd></dl>
 <p><a class="el" href="#ga8287d5a7be7b8e55ffeff68f7d26811c" title="Reads raw data from a dataset into a provided buffer.">H5Dread()</a> reads a dataset, specified by its identifier <code class="param">dset_id</code>, from the file into an application memory buffer <code class="param">buf</code>. Data transfer properties are defined by the argument <code class="param">dxpl_id</code>. The memory datatype of the (partial) dataset is identified by the identifier <code class="param">mem_type_id</code>. The part of the dataset to read is defined by <code class="param">mem_space_id</code> and <code class="param">file_space_id</code>.</p>
 <p><code class="param">file_space_id</code> is used to specify only the selection within the file dataset's dataspace. Any dataspace specified in <code class="param">file_space_id</code> is ignored by the library and the dataset's dataspace is always used. <code class="param">file_space_id</code> can be the constant <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, which indicates that the entire file dataspace, as defined by the current dimensions of the dataset, is to be selected.</p>
-<p><code class="param">mem_space_id</code> is used to specify both the memory dataspace and the selection within that dataspace. <code class="param">mem_space_id</code> can be the constant <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, in which case the file dataspace is used for the memory dataspace and the selection defined with <code class="param">file_space_id</code> is used for the selection within that dataspace. <code class="param">mem_space_id</code> can also be the constant <a class="el" href="_h5_spublic_8h.html#a0ab2947b757d8984251dc2eb7e8b5ffb">H5S_BLOCK</a>, which indicates that the buffer provided is a single contiguous block of memory, with the same # of elements as specified in the <code class="param">file_space_id</code> selection, equivalent to a 1-D dataspace containing this number of elements and all elements selected.</p>
+<p><code class="param">mem_space_id</code> is used to specify both the memory dataspace and the selection within that dataspace. <code class="param">mem_space_id</code> can be the constant <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, in which case the file dataspace is used for the memory dataspace and the selection defined with <code class="param">file_space_id</code> is used for the selection within that dataspace.</p>
 <p>The number of elements selected in the memory dataspace <em>must</em> be equal to the number of elements selected in the file dataspace.</p>
-<p>The behavior of the library for the various combinations of valid dataspace identifiers, <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, and <a class="el" href="_h5_spublic_8h.html#a0ab2947b757d8984251dc2eb7e8b5ffb">H5S_BLOCK</a> for the <code class="param">mem_space_id</code> and the <code class="param">file_space_id</code> parameters is described below:</p>
+<p>The behavior of the library for the various combinations of valid dataspace identifiers and <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a> for the <code class="param">mem_space_id</code> and the <code class="param">file_space_id</code> parameters is described below:</p>
 <table class="doxtable">
 <tr>
 <th>mem_space_id</th><th>file_space_id</th><th>Behavior</th></tr>
 <tr>
 <td>valid dataspace ID</td><td>valid dataspace ID</td><td><code class="param">mem_space_id</code> specifies the memory dataspace and the selection within it. <code class="param">file_space_id</code> specifies the selection within the file dataset's dataspace.</td></tr>
 <tr>
-<td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td>valid dataspace ID</td><td>The file dataset's dataspace is used for the file dataspace and the selection specified with <code class="param">file_space_id</code> specifies the selection within it. The combination of the file dataset's dataspace and the selection from <code class="param">file_space_id</code> is used for memory also.</td></tr>
-<tr>
-<td><a class="el" href="_h5_spublic_8h.html#a0ab2947b757d8984251dc2eb7e8b5ffb">H5S_BLOCK</a></td><td>valid dataspace ID</td><td>The file dataset's dataspace is used for the file dataspace and the selection specified with <code class="param">file_space_id</code> specifies the selection within it. The memory buffer is a pointer to a contiguous block of a number of elements equal to the number of elements selected in <code class="param">file_space_id</code>.</td></tr>
+<td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td>valid dataspace ID</td><td>The file dataset's dataspace is used for the memory dataspace and the selection specified with <code class="param">file_space_id</code> specifies the selection within it. The combination of the file dataset's dataspace and the selection from <code class="param">file_space_id</code> is used for memory also.</td></tr>
 <tr>
 <td>valid dataspace ID</td><td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td><code class="param">mem_space_id</code> specifies the memory dataspace and the selection within it. The selection within the file dataset's dataspace is set to the "all" selection.</td></tr>
 <tr>
 <td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td>The file dataset's dataspace is used for the memory dataspace and the selection within the memory dataspace is set to the "all" selection. The selection within the file dataset's dataspace is set to the "all" selection.</td></tr>
-<tr>
-<td><a class="el" href="_h5_spublic_8h.html#a0ab2947b757d8984251dc2eb7e8b5ffb">H5S_BLOCK</a></td><td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td>The selection within the file dataset's dataspace is set to the "all" selection. The memory buffer is a pointer to a contiguous block of a number of elements equal to the number of elements in the file dataset's dataspace extent.</td></tr>
 </table>
 <dl class="section note"><dt>Note</dt><dd>If no storage space was allocated for the dataset and a fill value is defined, the returned buffer <code class="param">buf</code> is filled with the fill value.</dd></dl>
 <dl class="section user"><dt>Example</dt><dd><div class="fragment"><div class="line">    {</div>
@@ -2056,23 +2209,19 @@ A call to <a class="el" href="#gad31e1e0129f4520c531ce524de2a056f" title="Change
 <p><a class="el" href="#ga98f44998b67587662af8b0d8a0a75906" title="Writes raw data from a buffer to a dataset.">H5Dwrite()</a> writes a (partial) dataset, specified by its identifier <code class="param">dset_id</code>, from the application memory buffer <code class="param">buf</code> into the file. Data transfer properties are defined by the argument <code class="param">dxpl_id</code>. The memory datatype of the (partial) dataset is identified by the identifier <code class="param">mem_type_id</code>. The part of the dataset to write is defined by <code class="param">mem_space_id</code> and <code class="param">file_space_id</code>.</p>
 <p>If <code class="param">mem_type_id</code> is either a fixed-length or variable-length string, it is important to set the string length when defining the datatype. String datatypes are derived from <a class="el" href="group___p_d_t_s.html#ga7f6b6959fefe56d2e871659110936d2d">H5T_C_S1</a> (or <a class="el" href="group___p_d_t_s.html#ga62335f6f57c2809fa1b3b1f9472eb2f6">H5T_FORTRAN_S1</a> for Fortran codes), which defaults to 1 character in size. See <a class="el" href="group___h5_t.html#gae5f38bfd4a4c557496b3194b5180212c" title="Sets size for a datatype.">H5Tset_size()</a> and Creating variable-length string datatypes.</p>
 <p><code class="param">file_space_id</code> is used to specify only the selection within the file dataset's dataspace. Any dataspace specified in <code class="param">file_space_id</code> is ignored by the library and the dataset's dataspace is always used. <code class="param">file_space_id</code> can be the constant <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, which indicates that the entire file dataspace, as defined by the current dimensions of the dataset, is to be selected.</p>
-<p><code class="param">mem_space_id</code> is used to specify both the memory dataspace and the selection within that dataspace. <code class="param">mem_space_id</code> can be the constant <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, in which case the file dataspace is used for the memory dataspace and the selection defined with <code class="param">file_space_id</code> is used for the selection within that dataspace. <code class="param">mem_space_id</code> can also be the constant <a class="el" href="_h5_spublic_8h.html#a0ab2947b757d8984251dc2eb7e8b5ffb">H5S_BLOCK</a>, which indicates that the buffer provided is a single contiguous block of memory, with the same # of elements as specified in the <code class="param">file_space_id</code> selection, equivalent to a 1-D dataspace containing this number of elements and all elements selected.</p>
-<p>The behavior of the library for the various combinations of valid dataspace IDs, <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, and <a class="el" href="_h5_spublic_8h.html#a0ab2947b757d8984251dc2eb7e8b5ffb">H5S_BLOCK</a> for the <code class="param">mem_space_id</code> and the <code class="param">file_space_id</code> parameters is described below:</p>
+<p><code class="param">mem_space_id</code> is used to specify both the memory dataspace and the selection within that dataspace. mem_space_id can be the constant <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a>, in which case the file dataspace is used for the memory dataspace and the selection defined with <code class="param">file_space_id</code> is used for the selection within that dataspace.</p>
+<p>The behavior of the library for the various combinations of valid dataspace IDs and <a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a> for the mem_space_id and thefile_space_id parameters is described below:</p>
 <table class="doxtable">
 <tr>
 <th><code>mem_space_id</code> </th><th><code>file_space_id</code> </th><th>Behavior</th></tr>
 <tr>
 <td>valid dataspace ID</td><td>valid dataspace ID</td><td><code class="param">mem_space_id</code> specifies the memory dataspace and the selection within it. <code class="param">file_space_id</code> specifies the selection within the file dataset's dataspace.</td></tr>
 <tr>
-<td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td>valid dataspace ID</td><td>The file dataset's dataspace is used for the file dataspace and the selection specified with <code class="param">file_space_id</code> specifies the selection within it. The combination of the file dataset's dataspace and the selection from <code class="param">file_space_id</code> is used for memory also.</td></tr>
-<tr>
-<td><a class="el" href="_h5_spublic_8h.html#a0ab2947b757d8984251dc2eb7e8b5ffb">H5S_BLOCK</a></td><td>valid dataspace ID</td><td>The file dataset's dataspace is used for the file dataspace and the selection specified with <code class="param">file_space_id</code> specifies the selection within it. The memory buffer is a pointer to a contiguous block of a number of elements equal to the number of elements selected in <code class="param">file_space_id</code>.</td></tr>
+<td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td>valid dataspace ID</td><td>The file dataset's dataspace is used for the memory dataspace and the selection specified with <code class="param">file_space_id</code> specifies the selection within it. The combination of the file dataset's dataspace and the selection from <code class="param">file_space_id</code> is used for memory also. valid dataspace ID</td></tr>
 <tr>
 <td>valid dataspace ID</td><td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td><code class="param">mem_space_id</code> specifies the memory dataspace and the selection within it. The selection within the file dataset's dataspace is set to "all" selection.</td></tr>
 <tr>
 <td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td>The file dataset's dataspace is used for the memory dataspace and the selection within the memory dataspace is set to the "all" selection. The selection within the file dataset's dataspace is set to the "all" selection.</td></tr>
-<tr>
-<td><a class="el" href="_h5_spublic_8h.html#a0ab2947b757d8984251dc2eb7e8b5ffb">H5S_BLOCK</a></td><td><a class="el" href="_h5_spublic_8h.html#a5f96eeee84b987f18470737f85af0484">H5S_ALL</a></td><td>The selection within the file dataset's dataspace is set to the "all" selection. The memory buffer is a pointer to a contiguous block of a number of elements equal to the number of elements in the file dataset's dataspace extent.</td></tr>
 </table>
 <p>Setting an "all" selection indicates that the entire dataspace, as defined by the current dimensions of a dataspace, will be selected. The number of elements selected in the memory dataspace must match the number of elements selected in the file dataspace.</p>
 <p><code class="param">dxpl_id</code> can be the constant <a class="el" href="_h5_ppublic_8h.html#afa85e97bfbf9bf1c58e39263846c568f">H5P_DEFAULT</a>, in which case the default data transfer properties are used.</p>
