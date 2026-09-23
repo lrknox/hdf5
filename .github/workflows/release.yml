@@ -134,16 +134,40 @@ jobs:
       GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
-  test-deployed-maven-packages:
-    name: Test Deployed Maven Packages
-    needs: [log-the-inputs, call-workflow-maven-staging, deploy-maven-artifacts]
-    if: ${{ inputs.deploy_maven == true && needs.deploy-maven-artifacts.result == 'success' }}
-    permissions:
-      contents: read
-      packages: read
-    uses: ./.github/workflows/test-maven-packages.yml
+  - name: Run deployed package tests
+    shell: bash
+    run: |
+      set -o pipefail
+
+      ./run-tests.sh 2>&1 | tee "$RUNNER_TEMP/maven-package-tests.log"
+      status=${PIPESTATUS[0]}
+
+      if [ "$status" -ne 0 ]; then
+        echo "::error::Deployed Maven package tests failed with exit code $status"
+        echo "::group::Test output"
+        cat "$RUNNER_TEMP/maven-package-tests.log"
+        echo "::endgroup::"
+      fi
+
+      exit "$status"
+
+  - name: Upload Maven package test log
+    if: always()
+    uses: actions/upload-artifact@v4
     with:
-      version: ${{ needs.call-workflow-maven-staging.outputs.version }}
-      java_implementation: 'both'
-      repository_url: ${{ inputs.maven_repository == 'github-packages' && format('https://maven.pkg.github.com/{0}', github.repository) || 'https://repo.maven.apache.org/maven2' }}
-    secrets: inherit
+      name: maven-package-test-log
+      path: ${{ runner.temp }}/maven-package-tests.log
+
+#  test-deployed-maven-packages:
+#    name: Test Deployed Maven Packages
+#    needs: [log-the-inputs, call-workflow-maven-staging, deploy-maven-artifacts]
+#    if: ${{ inputs.deploy_maven == true && needs.deploy-maven-artifacts.result == 'success' }}
+#    permissions:
+#      contents: read
+#      packages: read
+#    uses: ./.github/workflows/test-maven-packages.yml
+#    with:
+#      version: ${{ needs.call-workflow-maven-staging.outputs.version }}
+#      java_implementation: 'both'
+#      repository_url: ${{ inputs.maven_repository == 'github-packages' && format('https://maven.pkg.github.com/{0}', github.repository) || 'https://repo.maven.apache.org/maven2' }}
+#    secrets: inherit
