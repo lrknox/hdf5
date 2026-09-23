@@ -134,7 +134,8 @@ jobs:
       GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
-  - name: Run deployed package tests
+  test-deployed-maven-packages:
+    name: Run deployed package tests
     shell: bash
     run: |
       set -o pipefail
@@ -151,7 +152,7 @@ jobs:
 
       exit "$status"
 
-  - name: Upload Maven package test log
+    name: Upload Maven package test log
     if: always()
     uses: actions/upload-artifact@v4
     with:
