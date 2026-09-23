@@ -135,29 +135,30 @@ jobs:
       GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
   test-deployed-maven-packages:
-    name: Run deployed package tests
-    shell: bash
-    run: |
-      set -o pipefail
+    steps:
+    - name: Run deployed package tests
+      shell: bash
+      run: |
+        set -o pipefail
 
-      ./run-tests.sh 2>&1 | tee "$RUNNER_TEMP/maven-package-tests.log"
-      status=${PIPESTATUS[0]}
+        ./run-tests.sh 2>&1 | tee "$RUNNER_TEMP/maven-package-tests.log"
+        status=${PIPESTATUS[0]}
 
-      if [ "$status" -ne 0 ]; then
-        echo "::error::Deployed Maven package tests failed with exit code $status"
-        echo "::group::Test output"
-        cat "$RUNNER_TEMP/maven-package-tests.log"
-        echo "::endgroup::"
-      fi
+        if [ "$status" -ne 0 ]; then
+          echo "::error::Deployed Maven package tests failed with exit code $status"
+          echo "::group::Test output"
+          cat "$RUNNER_TEMP/maven-package-tests.log"
+          echo "::endgroup::"
+        fi
 
-      exit "$status"
+        exit "$status"
 
-    name: Upload Maven package test log
-    if: always()
-    uses: actions/upload-artifact@v4
-    with:
-      name: maven-package-test-log
-      path: ${{ runner.temp }}/maven-package-tests.log
+    - name: Upload Maven package test log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: maven-package-test-log
+        path: ${{ runner.temp }}/maven-package-tests.log
 
 #  test-deployed-maven-packages:
 #    name: Test Deployed Maven Packages
