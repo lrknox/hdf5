@@ -59,7 +59,7 @@ jobs:
 
   deploy-to-packages:
     name: Deploy to GitHub Packages (Test)
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: build-maven-packages
     if: ${{ inputs.test_deployment && needs.build-maven-packages.result == 'success' }}
     permissions:
@@ -140,7 +140,7 @@ jobs:
   test-jni-package:
     name: Test JNI Maven Package
     needs: [build-maven-packages, deploy-to-packages]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       packages: read
@@ -199,7 +199,7 @@ jobs:
   test-ffm-package:
     name: Test FFM Maven Package
     needs: [build-maven-packages, deploy-to-packages]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       packages: read
@@ -257,7 +257,7 @@ jobs:
 
   summarize-results:
     name: Test Summary
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [build-maven-packages, deploy-to-packages, test-jni-package, test-ffm-package]
     if: always()
     steps:

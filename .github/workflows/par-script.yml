@@ -158,7 +158,7 @@ jobs:
           path: ${{ runner.workspace }}/hdf5/hdf5.log
 
   Build_parallel_linux:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         mpi: [ 'mpich', 'openmpi', 'intelmpi']

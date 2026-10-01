@@ -18,7 +18,7 @@ env:
 jobs:
   nvhpc_build_and_test:
     name: "nvhpc ${{ inputs.build_mode }}"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       CUDAVERDOT: "13.2"
       NVERDOT: "26.5"

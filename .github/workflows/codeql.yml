@@ -15,7 +15,7 @@ permissions:
 jobs:
   check-changes:
     name: Check for code changes
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       has_code_changes: ${{ steps.filter.outputs.code }}
     steps:
@@ -44,7 +44,7 @@ jobs:
       needs.check-changes.outputs.has_code_changes == 'true' ||
       github.event_name == 'schedule' ||
       github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       actions: read
       contents: read
@@ -219,7 +219,7 @@ jobs:
     name: codeql-complete
     if: always()
     needs: [check-changes, analyze]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       security-events: write
     steps:

@@ -21,7 +21,7 @@ jobs:
     # Don't run the action if the commit message says to skip CI
     if: "!contains(github.event.head_commit.message, 'skip-ci')"
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Set file base name (Windows)
         id: set-file-base
@@ -272,7 +272,7 @@ jobs:
     # Linux (Ubuntu) w/ clang
     #
     name: "Ubuntu Clang"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Get Actions
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

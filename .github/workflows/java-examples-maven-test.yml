@@ -19,7 +19,7 @@ jobs:
   # Parallel testing by platform and example category
   test-examples-linux:
     name: "Test Examples Linux (${{ matrix.category }})"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     continue-on-error: true  # Non-blocking failures
     strategy:
       fail-fast: false
@@ -427,7 +427,7 @@ jobs:
 
   analyze-cross-platform-failures:
     name: "Analyze Cross-Platform Failures"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [test-examples-linux, test-examples-windows, test-examples-macos]
     if: always()
     steps:

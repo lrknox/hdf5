@@ -26,7 +26,7 @@ permissions:
 
 jobs:
   publish-tag:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 30
 
     # Expose the templated inputs/secrets/vars as environment variables so the

@@ -20,7 +20,7 @@ permissions: {}
 
 jobs:
   signal:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: github.repository == 'HDFGroup/hdf5' && github.event.pull_request.base.ref == 'develop'
     steps:
       - run: echo "Review submitted on PR ${{ github.event.pull_request.number }}"

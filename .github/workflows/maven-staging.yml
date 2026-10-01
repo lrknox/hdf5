@@ -78,7 +78,7 @@ permissions:
 jobs:
   detect-changes:
     name: Detect Maven-related Changes
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       maven-changes: ${{ steps.changes.outputs.maven }}
       should-test: ${{ steps.should-test.outputs.result }}
@@ -143,7 +143,7 @@ jobs:
     name: Determine Build Matrix
     needs: detect-changes
     if: ${{ needs.detect-changes.outputs.should-test == 'true' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -175,16 +175,16 @@ jobs:
           # Determine which platforms to build
           case "$PLATFORMS" in
             "linux-only")
-              PLATFORM_LIST='[{"name": "Linux", "os": "ubuntu-latest", "compiler": "GNUC", "arch": "x86_64"}]'
+              PLATFORM_LIST='[{"name": "Linux", "os": "ubuntu-26.04", "compiler": "GNUC", "arch": "x86_64"}]'
               ;;
             "linux-windows")
-              PLATFORM_LIST='[{"name": "Linux", "os": "ubuntu-latest", "compiler": "GNUC", "arch": "x86_64"}, {"name": "Windows", "os": "windows-latest", "compiler": "MSVC", "arch": "x86_64"}]'
+              PLATFORM_LIST='[{"name": "Linux", "os": "ubuntu-26.04", "compiler": "GNUC", "arch": "x86_64"}, {"name": "Windows", "os": "windows-latest", "compiler": "MSVC", "arch": "x86_64"}]'
               ;;
             "linux-macos")
-              PLATFORM_LIST='[{"name": "Linux", "os": "ubuntu-latest", "compiler": "GNUC", "arch": "x86_64"}, {"name": "macOS-x86_64", "os": "macos-15", "compiler": "Clang", "arch": "x86_64"}, {"name": "macOS-aarch64", "os": "macos-latest", "compiler": "Clang", "arch": "aarch64"}]'
+              PLATFORM_LIST='[{"name": "Linux", "os": "ubuntu-26.04", "compiler": "GNUC", "arch": "x86_64"}, {"name": "macOS-x86_64", "os": "macos-15", "compiler": "Clang", "arch": "x86_64"}, {"name": "macOS-aarch64", "os": "macos-latest", "compiler": "Clang", "arch": "aarch64"}]'
               ;;
             "all-platforms"|*)
-              PLATFORM_LIST='[{"name": "Linux", "os": "ubuntu-latest", "compiler": "GNUC", "arch": "x86_64"}, {"name": "Windows", "os": "windows-latest", "compiler": "MSVC", "arch": "x86_64"}, {"name": "macOS-x86_64", "os": "macos-15", "compiler": "Clang", "arch": "x86_64"}, {"name": "macOS-aarch64", "os": "macos-latest", "compiler": "Clang", "arch": "aarch64"}]'
+              PLATFORM_LIST='[{"name": "Linux", "os": "ubuntu-26.04", "compiler": "GNUC", "arch": "x86_64"}, {"name": "Windows", "os": "windows-latest", "compiler": "MSVC", "arch": "x86_64"}, {"name": "macOS-x86_64", "os": "macos-15", "compiler": "Clang", "arch": "x86_64"}, {"name": "macOS-aarch64", "os": "macos-latest", "compiler": "Clang", "arch": "aarch64"}]'
               ;;
           esac
 
@@ -687,7 +687,7 @@ jobs:
 
   test-maven-deployment:
     name: Test Maven Deployment
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [detect-changes, determine-matrix, build-maven-artifacts]
     if: ${{ always() && needs.detect-changes.outputs.should-test == 'true' }}
     outputs:
@@ -1351,7 +1351,7 @@ jobs:
 
   cleanup:
     name: Cleanup Staging Artifacts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [detect-changes, determine-matrix, build-maven-artifacts, test-maven-deployment]
     if: ${{ always() && needs.detect-changes.outputs.should-test == 'true' }}
     steps:

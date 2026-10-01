@@ -65,7 +65,7 @@ permissions:
 jobs:
   test-jni-binary:
     name: Test JNI with Binary Installation
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: |
       inputs.java_implementation == 'both' ||
       inputs.java_implementation == 'jni'
@@ -270,7 +270,7 @@ jobs:
 
   test-ffm-binary:
     name: Test FFM with Binary Installation
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: |
       inputs.java_implementation == 'both' ||
       inputs.java_implementation == 'ffm'
@@ -371,7 +371,7 @@ jobs:
 
   summary:
     name: Binary Installation Test Summary
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [test-jni-binary, test-ffm-binary]
     if: always()
     steps:

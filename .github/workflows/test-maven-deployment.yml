@@ -27,7 +27,7 @@ permissions:
 jobs:
   generate-test-artifacts:
     name: Generate Test Artifacts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       packages: read
@@ -154,7 +154,7 @@ jobs:
     name: Validate Deployment Results
     needs: test-maven-deployment
     if: ${{ always() && inputs.test_mode == 'live-deployment' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       contents: read
       packages: read
@@ -190,7 +190,7 @@ jobs:
     name: Display Test Results
     needs: [generate-test-artifacts, test-maven-deployment]
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Display next steps
         run: |

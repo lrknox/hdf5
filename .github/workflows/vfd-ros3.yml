@@ -54,7 +54,7 @@ jobs:
             os: windows-latest
             test_ros3: OFF
           - os_name: "Ubuntu GCC"
-            os: ubuntu-latest
+            os: ubuntu-26.04
             test_ros3: ON
           - os_name: "MacOS Clang"
             os: macos-latest
@@ -220,7 +220,7 @@ jobs:
             ostype: windows
             test_ros3: OFF
           - os_name: "Ubuntu GCC"
-            os: ubuntu-latest
+            os: ubuntu-26.04
             ostype: ubuntu
             test_ros3: ON
           - os_name: "MacOS Clang"

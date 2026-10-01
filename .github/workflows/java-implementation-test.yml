@@ -27,7 +27,7 @@ on:
         description: 'Platforms to test'
         type: string
         required: false
-        default: 'ubuntu-latest'
+        default: 'ubuntu-26.04'
   workflow_dispatch:
     inputs:
       java_versions:
@@ -48,9 +48,9 @@ on:
         description: 'Platforms to test'
         type: choice
         required: false
-        default: 'ubuntu-latest'
+        default: 'ubuntu-26.04'
         options:
-          - 'ubuntu-latest'
+          - 'ubuntu-26.04'
           - 'windows-latest'
           - 'macos-latest'
           - 'all-platforms'
@@ -63,7 +63,7 @@ env:
 
 jobs:
   setup-matrix:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       matrix: ${{ steps.generate-matrix.outputs.matrix }}
     steps:
@@ -71,12 +71,12 @@ jobs:
         id: generate-matrix
         env:
           JAVA_VERSIONS: ${{ inputs.java_versions || '11,17,21,25' }}
-          PLATFORMS: ${{ inputs.platforms || 'ubuntu-latest' }}
+          PLATFORMS: ${{ inputs.platforms || 'ubuntu-26.04' }}
         run: |
 
           # Expand platforms if needed
           if [[ "$PLATFORMS" == "all-platforms" ]]; then
-            PLATFORMS="ubuntu-latest,windows-latest,macos-latest"
+            PLATFORMS="ubuntu-26.04,windows-latest,macos-latest"
           fi
 
           # Generate matrix
@@ -214,7 +214,7 @@ jobs:
 
   validate-artifacts:
     needs: [setup-matrix, test-implementations]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: inputs.test_mode == 'maven' || inputs.test_mode == 'full'
 
     steps:
@@ -286,7 +286,7 @@ jobs:
 
   report-results:
     needs: [setup-matrix, test-implementations, validate-artifacts]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: always()
 
     steps:
@@ -294,7 +294,7 @@ jobs:
         env:
           JAVA_VERSIONS: ${{ inputs.java_versions || '11,17,21,25' }}
           TEST_MODE: ${{ inputs.test_mode || 'build' }}
-          PLATFORMS: ${{ inputs.platforms || 'ubuntu-latest' }}
+          PLATFORMS: ${{ inputs.platforms || 'ubuntu-26.04' }}
         run: |
           echo "## Java Implementation Test Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY

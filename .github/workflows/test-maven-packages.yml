@@ -52,7 +52,7 @@ permissions:
 jobs:
   test-jni-package:
     name: Test JNI Maven Package
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: |
       inputs.java_implementation == 'both' ||
       inputs.java_implementation == 'jni'
@@ -323,7 +323,7 @@ jobs:
 
   test-ffm-package:
     name: Test FFM Maven Package
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: |
       inputs.java_implementation == 'both' ||
       inputs.java_implementation == 'ffm'
@@ -595,7 +595,7 @@ jobs:
 
   summary:
     name: Test Summary
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs: [test-jni-package, test-ffm-package]
     if: always()
     steps:

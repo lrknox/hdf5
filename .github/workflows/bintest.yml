@@ -111,7 +111,7 @@ jobs:
   # Linux (Ubuntu) w/ gcc
   #
     name: "Ubuntu gcc Binary Test"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Install Dependencies (Linux)
         run: |
@@ -233,7 +233,7 @@ jobs:
   # Linux (Ubuntu) w/ gcc
   #
     name: "Ubuntu h5cc Binary Test"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Install Dependencies (Linux)
         run: |

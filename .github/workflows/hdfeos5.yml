@@ -23,7 +23,7 @@ concurrency:
 jobs:
   build:
     name: Build hdfeos5
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     if: "github.repository_owner == 'HDFGroup'"
     steps:
       - name: Install System dependencies

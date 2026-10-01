@@ -37,7 +37,7 @@ env:
 # Previous workflows must pass to get here so tag the commit that created the files
 jobs:
   PreRelease-getfiles:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     environment: ${{ inputs.use_environ }}
     permissions:
         contents: write

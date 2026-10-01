@@ -18,7 +18,7 @@ env:
 jobs:
   aocc_build_and_test:
     name: "aocc ${{ inputs.build_mode }}"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       AOCCVERDOT: "5.1.0"
       AOCCVERDASH: "5-1"

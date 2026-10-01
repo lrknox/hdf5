@@ -148,7 +148,7 @@ jobs:
   # Linux (Ubuntu) w/ gcc
   #
     name: "Ubuntu gcc"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Get Actions
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -366,7 +366,7 @@ jobs:
   # Linux S3 (Ubuntu) w/ gcc
   #
     name: "Ubuntu gcc S3"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Get Actions
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -607,7 +607,7 @@ jobs:
   # Linux (Ubuntu) w/ OneAPI
   #
     name: "Ubuntu Intel"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Get Actions
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -716,7 +716,7 @@ jobs:
   # Linux (Ubuntu) w/ clang
   #
     name: "Ubuntu Clang"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Get Actions
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
