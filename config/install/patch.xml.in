@@ -2,7 +2,7 @@
     <CPackWiXFragment Id="CM_CP_libraries.bin.@WIX_CMP_NAME@.dll">
         <Environment Id="PATH" 
              Name="PATH" 
-             Value="[CM_DP_libraries.bin]:[INSTALL_ROOT]lib\plugin" 
+             Value="[CM_DP_libraries.bin];[INSTALL_ROOT]lib\plugin" 
              Permanent="no" 
              Part="last" 
              Action="set" 
